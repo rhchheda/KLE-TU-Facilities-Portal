@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Research Facilities &amp; Equipment · KLE-TU</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ──────────────────────────────────────────────────────────────
+   KLE-TU FACILITIES PORTAL · Design tokens
+   ────────────────────────────────────────────────────────────── */
+:root{
+  --navy:#0C2D6B;--nd:#081E47;--nm:#10336e;--nl:#1a4a8a;
+  --gold:#C8960C;--gl:#e8b432;--gd:#a07908;
+  --w:#fff;--off:#f4f6f9;--gray:#e2e8f2;
+  --mid:#2c3e6b;--muted:#7a8ba0;--text:#1a1a2e;
+  --shadow-sm:0 1px 2px rgba(8,30,71,.08);
+  --shadow-md:0 4px 14px rgba(8,30,71,.12);
+  --shadow-lg:0 12px 36px rgba(8,30,71,.18);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;overflow:hidden;background:#000;
+  font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;color:var(--text)}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+a{color:inherit;text-decoration:none}
+
+/* ── HEADER ─────────────────────────────────────────────────── */
+#hbar{
+  position:fixed;top:0;left:0;right:0;height:54px;
+  background:var(--nd);z-index:900;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 18px;border-bottom:1px solid rgba(200,150,12,.2);
+}
+#hbar::after{
+  content:'';position:absolute;bottom:-1px;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+.brand{display:flex;align-items:center;gap:12px;color:var(--w)}
+.brand-mark{width:36px;height:36px;border-radius:8px;
+  background:linear-gradient(135deg,var(--gold),var(--gd));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Playfair Display',serif;font-weight:700;font-size:18px;color:var(--nd);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.4)}
+.brand-text{display:flex;flex-direction:column;line-height:1.15}
+.brand-text strong{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;letter-spacing:.01em}
+.brand-text small{font-family:'DM Mono',monospace;font-size:8.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:rgba(200,150,12,.7);margin-top:1px}
+.hbtns{display:flex;align-items:center;gap:8px}
+.hb{
+  background:rgba(200,150,12,.08);border:1px solid rgba(200,150,12,.22);
+  border-radius:6px;padding:7px 12px;color:rgba(200,150,12,.85);
+  font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.06em;
+  text-transform:uppercase;transition:.2s;white-space:nowrap;
+  display:inline-flex;align-items:center;gap:5px;
+}
+.hb:hover{background:rgba(200,150,12,.2);border-color:var(--gold);color:var(--gold)}
+.hb kbd{font-family:'DM Mono',monospace;font-size:8.5px;
+  padding:1px 5px;background:rgba(200,150,12,.15);border-radius:3px;
+  border:1px solid rgba(200,150,12,.2)}
+
+/* ── PROGRESS BAR ───────────────────────────────────────────── */
+#prog{position:fixed;top:0;left:0;right:0;height:2px;z-index:950;background:rgba(255,255,255,.04)}
+#pf{height:100%;background:linear-gradient(90deg,var(--gold),var(--gl));transition:width .4s;width:0}
+
+/* ── DECK & SLIDES ──────────────────────────────────────────── */
+#deck{position:fixed;top:54px;left:0;right:0;bottom:32px;overflow:hidden}
+.slide{
+  position:absolute;inset:0;opacity:0;pointer-events:none;
+  transform:translateX(50px);
+  transition:opacity .42s cubic-bezier(.4,0,.2,1),transform .42s cubic-bezier(.4,0,.2,1);
+  will-change:opacity,transform;
+}
+.slide.active{opacity:1;pointer-events:all;transform:none}
+.slide.out{opacity:0;transform:translateX(-50px)}
+
+/* ── FOOTER ─────────────────────────────────────────────────── */
+#foot{
+  position:fixed;bottom:0;left:0;right:0;height:32px;z-index:900;
+  background:var(--nd);border-top:1px solid rgba(200,150,12,.1);
+  display:flex;align-items:center;padding:0 18px;font-family:'DM Mono',monospace;
+}
+#ft{font-size:8.5px;color:rgba(255,255,255,.3);letter-spacing:.05em}
+#fc{margin-left:auto;font-size:8.5px;color:rgba(200,150,12,.55);display:flex;align-items:center;gap:14px}
+#fc .sep{color:rgba(200,150,12,.2)}
+
+/* ── ARROW NAV ──────────────────────────────────────────────── */
+.arw{
+  position:fixed;top:50%;transform:translateY(-50%);z-index:890;
+  width:38px;height:38px;border-radius:50%;
+  border:1px solid rgba(200,150,12,.25);background:rgba(0,0,0,.55);
+  color:var(--gold);font-size:14px;backdrop-filter:blur(8px);
+  display:flex;align-items:center;justify-content:center;transition:.2s;
+}
+.arw:hover{background:rgba(200,150,12,.16);border-color:var(--gold);
+  transform:translateY(-50%) scale(1.08)}
+#ap{left:14px}#an{right:14px}
+.arw.hidden{opacity:0;pointer-events:none}
+
+/* ── DOTS ───────────────────────────────────────────────────── */
+#dots{
+  position:fixed;bottom:40px;left:50%;transform:translateX(-50%);
+  z-index:890;display:flex;gap:5px;align-items:center;
+  background:rgba(0,0,0,.4);padding:6px 10px;border-radius:999px;
+  backdrop-filter:blur(8px);border:1px solid rgba(200,150,12,.12);
+}
+.dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.22);transition:.2s}
+.dot.on{background:var(--gold);transform:scale(1.6)}
+.dot:hover{background:rgba(200,150,12,.6)}
+
+/* ── ENTRANCE ANIMATIONS ────────────────────────────────────── */
+@keyframes fu{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.slide.active .fu{animation:fu .5s both}
+.slide.active .fu:nth-child(1){animation-delay:.06s}
+.slide.active .fu:nth-child(2){animation-delay:.14s}
+.slide.active .fu:nth-child(3){animation-delay:.22s}
+.slide.active .fu:nth-child(4){animation-delay:.30s}
+.slide.active .fu:nth-child(5){animation-delay:.38s}
+.slide.active .fu:nth-child(6){animation-delay:.46s}
+
+/* ════════════════════════════════════════════════════════════
+   SLIDE 1 · TITLE
+   ════════════════════════════════════════════════════════════ */
+#s1{background:var(--nd);color:var(--w);position:absolute;inset:0;overflow:hidden}
+#s1 .bg-grid{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(rgba(200,150,12,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(200,150,12,.04) 1px,transparent 1px);
+  background-size:48px 48px;
+}
+#s1 .glow{
+  position:absolute;width:620px;height:620px;border-radius:50%;
+  background:radial-gradient(circle,rgba(200,150,12,.08) 0%,transparent 70%);
+  top:-180px;right:-100px;pointer-events:none;
+}
+#s1 .glow2{
+  position:absolute;width:480px;height:480px;border-radius:50%;
+  background:radial-gradient(circle,rgba(26,74,138,.4) 0%,transparent 70%);
+  bottom:-150px;left:-120px;pointer-events:none;
+}
+#s1 .body{position:absolute;inset:0;z-index:2;display:flex;align-items:center;padding:0 6% 0 7%;gap:5%}
+#s1 .left{flex:0 0 56%;min-width:0}
+.eye{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:22px}
+.eye::before{content:'';display:inline-block;width:24px;height:1px;
+  background:var(--gold);margin-right:10px;vertical-align:middle}
+#s1 h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(38px,5.2vw,66px);line-height:1.04;font-weight:700;
+  color:var(--w);margin-bottom:18px;letter-spacing:-.01em;
+}
+#s1 h1 em{color:var(--gold);font-style:italic;font-weight:600}
+.gbar{width:48px;height:2px;background:linear-gradient(90deg,var(--gold),transparent);margin:18px 0 22px}
+#s1 .sub{font-size:clamp(13px,1.45vw,15px);color:rgba(255,255,255,.62);
+  line-height:1.75;max-width:480px;font-weight:300}
+.s1-cta{margin-top:26px;display:flex;gap:10px;flex-wrap:wrap}
+.b-gold{background:var(--gold);color:var(--nd);border-radius:8px;
+  padding:11px 22px;font-size:12px;font-weight:600;
+  font-family:'DM Sans',sans-serif;transition:.2s;
+  display:inline-flex;align-items:center;gap:7px}
+.b-gold:hover{background:var(--gl);transform:translateY(-1px);box-shadow:0 4px 14px rgba(200,150,12,.3)}
+.b-ghost{background:rgba(200,150,12,.08);color:var(--gold);
+  border:1px solid rgba(200,150,12,.3);border-radius:8px;
+  padding:11px 20px;font-size:11px;
+  font-family:'DM Mono',monospace;letter-spacing:.04em;transition:.2s;
+  display:inline-flex;align-items:center;gap:6px}
+.b-ghost:hover{background:rgba(200,150,12,.18);border-color:var(--gold)}
+
+#s1 .right{flex:1;display:flex;flex-direction:column;gap:11px;min-width:0}
+.sc{
+  background:rgba(255,255,255,.04);border:1px solid rgba(200,150,12,.14);
+  border-radius:12px;padding:15px 19px;display:flex;align-items:center;gap:16px;
+  transition:.3s;
+}
+.sc:hover{background:rgba(255,255,255,.06);border-color:rgba(200,150,12,.3);transform:translateX(2px)}
+.sc .n{font-family:'Playfair Display',serif;font-size:clamp(24px,2.9vw,34px);
+  font-weight:700;color:var(--gold);min-width:88px;flex-shrink:0;line-height:1}
+.sc .l{font-size:clamp(11px,1.1vw,13px);color:rgba(255,255,255,.65);line-height:1.5}
+.sc .l small{font-size:.82em;color:rgba(255,255,255,.32);display:block;margin-top:3px;
+  font-family:'DM Mono',monospace;letter-spacing:.04em}
+.s1-foot{margin-top:6px;font-family:'DM Mono',monospace;font-size:9px;
+  color:rgba(200,150,12,.55);letter-spacing:.1em;text-transform:uppercase;
+  display:flex;align-items:center;gap:8px}
+.s1-foot::before{content:'';width:18px;height:1px;background:rgba(200,150,12,.4)}
+
+/* ════════════════════════════════════════════════════════════
+   SLIDE 2 · MAP / FACILITY DIRECTORY
+   ════════════════════════════════════════════════════════════ */
+.map-slide{background:var(--off);position:absolute;inset:0;overflow:hidden;
+  display:flex;flex-direction:column}
+.map-head{
+  padding:24px 6% 12px;background:var(--w);border-bottom:1px solid var(--gray);
+}
+.map-eye{font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:7px}
+.map-title{font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,34px);
+  font-weight:700;color:var(--nd);margin-bottom:6px;letter-spacing:-.01em}
+.map-sub{font-size:13px;color:var(--muted);line-height:1.55;max-width:680px}
+.map-tools{margin-top:14px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.map-search{
+  flex:1;min-width:240px;max-width:380px;position:relative;
+}
+.map-search input{
+  width:100%;padding:9px 14px 9px 36px;border:1px solid var(--gray);
+  border-radius:8px;font-size:13px;font-family:'DM Sans',sans-serif;
+  background:var(--w);transition:.2s;
+}
+.map-search input:focus{outline:none;border-color:var(--gold);
+  box-shadow:0 0 0 3px rgba(200,150,12,.1)}
+.map-search::before{content:'⌕';position:absolute;left:13px;top:50%;
+  transform:translateY(-50%);font-size:14px;color:var(--muted)}
+.map-search kbd{position:absolute;right:10px;top:50%;transform:translateY(-50%);
+  font-family:'DM Mono',monospace;font-size:9px;padding:2px 6px;
+  background:var(--off);color:var(--muted);border:1px solid var(--gray);
+  border-radius:4px}
+.filter-chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{
+  padding:6px 12px;border:1px solid var(--gray);border-radius:99px;
+  font-size:11px;color:var(--mid);background:var(--w);transition:.2s;
+  font-weight:500;display:inline-flex;align-items:center;gap:6px;
+}
+.chip:hover{border-color:var(--gold);color:var(--gold)}
+.chip.on{background:var(--nd);color:var(--gold);border-color:var(--nd)}
+.chip .c{font-family:'DM Mono',monospace;font-size:9px;opacity:.7}
+
+.map-body{flex:1;overflow-y:auto;padding:22px 6% 26px}
+.map-section{margin-bottom:24px}
+.map-section-head{
+  display:flex;align-items:baseline;gap:14px;margin-bottom:12px;padding-bottom:8px;
+  border-bottom:1px solid var(--gray);
+}
+.map-section-title{font-family:'Playfair Display',serif;font-size:18px;color:var(--nd);font-weight:700}
+.map-section-meta{font-family:'DM Mono',monospace;font-size:9.5px;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+
+.map-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:12px;
+}
+.map-tile{
+  background:var(--w);border:1px solid var(--gray);border-radius:10px;
+  padding:14px 16px;cursor:pointer;transition:.25s;
+  display:flex;flex-direction:column;gap:6px;position:relative;
+  box-shadow:var(--shadow-sm);
+}
+.map-tile:hover{
+  border-color:var(--gold);transform:translateY(-2px);
+  box-shadow:var(--shadow-md);
+}
+.map-tile::after{
+  content:'→';position:absolute;top:14px;right:16px;
+  font-size:14px;color:var(--gray);transition:.2s;
+}
+.map-tile:hover::after{color:var(--gold);transform:translateX(3px)}
+.mt-type{font-family:'DM Mono',monospace;font-size:8.5px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--gold);font-weight:500}
+.mt-short{font-family:'Playfair Display',serif;font-size:18px;color:var(--nd);
+  font-weight:700;line-height:1.1;margin-bottom:2px}
+.mt-name{font-size:11px;color:var(--mid);line-height:1.4;margin-bottom:4px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.mt-meta{font-size:10px;color:var(--muted);display:flex;gap:10px;
+  margin-top:auto;padding-top:6px;border-top:1px dashed var(--gray);
+  font-family:'DM Mono',monospace}
+.mt-meta span{display:inline-flex;align-items:center;gap:4px}
+.mt-meta strong{color:var(--nd);font-family:'DM Mono',monospace}
+
+.map-empty{
+  background:var(--w);border:1px dashed var(--gray);border-radius:10px;
+  padding:40px 20px;text-align:center;color:var(--muted);font-size:12px;
+}
+
+/* ════════════════════════════════════════════════════════════
+   SLIDE N · FACILITY DETAIL
+   ════════════════════════════════════════════════════════════ */
+.fac-slide{position:absolute;inset:0;display:flex;background:var(--off)}
+.fac-hero{
+  flex:0 0 36%;background:linear-gradient(160deg,var(--nm) 0%,var(--nd) 100%);
+  color:var(--w);padding:30px 32px;position:relative;overflow:hidden;
+  display:flex;flex-direction:column;
+}
+.fac-hero::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(rgba(200,150,12,.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(200,150,12,.05) 1px,transparent 1px);
+  background-size:36px 36px;
+}
+.fac-hero::after{
+  content:'';position:absolute;width:380px;height:380px;border-radius:50%;
+  background:radial-gradient(circle,rgba(200,150,12,.1) 0%,transparent 70%);
+  top:-100px;right:-80px;pointer-events:none;
+}
+.fac-hero > *{position:relative;z-index:1}
+.fh-type{font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:14px;
+  display:flex;align-items:center;gap:8px}
+.fh-type::before{content:'';width:18px;height:1px;background:var(--gold)}
+.fh-short{font-family:'Playfair Display',serif;font-size:54px;
+  font-weight:700;line-height:1;letter-spacing:-.02em;margin-bottom:4px;color:var(--gold)}
+.fh-name{font-family:'Playfair Display',serif;font-size:20px;
+  font-weight:600;line-height:1.2;margin-bottom:14px;color:var(--w)}
+.fh-line{width:42px;height:2px;background:linear-gradient(90deg,var(--gold),transparent);margin-bottom:18px}
+.fh-desc{font-size:12.5px;line-height:1.65;color:rgba(255,255,255,.72);margin-bottom:22px;font-weight:300}
+.fh-info{display:flex;flex-direction:column;gap:10px;margin-bottom:auto}
+.fh-info-row{display:flex;align-items:flex-start;gap:10px;font-size:11px;color:rgba(255,255,255,.78)}
+.fh-info-row .lbl{font-family:'DM Mono',monospace;font-size:8.5px;
+  letter-spacing:.1em;text-transform:uppercase;color:rgba(200,150,12,.7);
+  min-width:88px;flex-shrink:0;padding-top:1px}
+.fh-info-row .val{flex:1;line-height:1.5}
+.fh-info-row .val a{color:rgba(255,255,255,.9);border-bottom:1px dotted rgba(200,150,12,.5)}
+.fh-info-row .val a:hover{color:var(--gold)}
+.fh-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:4px}
+.fh-tag{background:rgba(200,150,12,.1);border:1px solid rgba(200,150,12,.2);
+  border-radius:99px;padding:3px 9px;font-size:9.5px;color:var(--gold);
+  font-family:'DM Mono',monospace}
+.fh-stats{display:flex;gap:18px;margin-top:18px;padding-top:18px;
+  border-top:1px solid rgba(200,150,12,.15)}
+.fh-stat{display:flex;flex-direction:column;gap:1px}
+.fh-stat-n{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--gold);line-height:1}
+.fh-stat-l{font-family:'DM Mono',monospace;font-size:8.5px;
+  letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-top:3px}
+
+.fac-pane{flex:1;display:flex;flex-direction:column;min-width:0;background:var(--off)}
+.fp-head{padding:22px 32px 14px;background:var(--w);border-bottom:1px solid var(--gray);
+  display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.fp-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--nd)}
+.fp-meta{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);
+  letter-spacing:.06em}
+.fp-back{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--muted);padding:6px 12px;border-radius:6px;
+  border:1px solid var(--gray);transition:.2s}
+.fp-back:hover{color:var(--gold);border-color:var(--gold)}
+
+.fp-body{flex:1;overflow-y:auto;padding:22px 32px 30px}
+.cat-block{margin-bottom:24px}
+.cat-block-head{font-family:'DM Mono',monospace;font-size:10px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--nd);
+  margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--gray);
+  display:flex;align-items:center;justify-content:space-between}
+.cat-block-head .grp{color:var(--gold)}
+.cat-block-head .cnt{color:var(--muted);font-weight:400}
+
+.cards-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:11px;
+}
+.card{
+  background:var(--w);border:1px solid var(--gray);border-radius:10px;
+  overflow:hidden;cursor:pointer;transition:.25s;display:flex;flex-direction:column;
+  box-shadow:var(--shadow-sm);
+}
+.card:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.card-img{
+  position:relative;width:100%;height:100px;background:var(--off);
+  display:flex;align-items:center;justify-content:center;overflow:hidden;
+  border-bottom:1px solid var(--gray);
+}
+.card-img img{max-width:90%;max-height:88%;object-fit:contain}
+.card-img .ph{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);
+  letter-spacing:.1em;text-transform:uppercase}
+.card-badge{position:absolute;top:7px;left:7px;
+  background:rgba(8,30,71,.85);color:var(--gold);border-radius:4px;
+  padding:2px 6px;font-size:8.5px;font-family:'DM Mono',monospace;
+  letter-spacing:.04em;max-width:calc(100% - 14px);overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap}
+.card-body{padding:11px 12px 12px;flex:1;display:flex;flex-direction:column;gap:4px}
+.card-name{font-family:'Playfair Display',serif;font-size:14px;font-weight:600;
+  color:var(--nd);line-height:1.2;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card-spec{font-size:10px;color:var(--muted);line-height:1.4;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+  font-family:'DM Mono',monospace}
+.card-cta{font-family:'DM Mono',monospace;font-size:9px;color:var(--gold);
+  letter-spacing:.06em;margin-top:auto;padding-top:4px}
+
+.fac-empty{
+  background:var(--w);border:1px dashed var(--gray);border-radius:10px;
+  padding:48px 24px;text-align:center;
+}
+.fac-empty .em-ico{font-size:32px;color:var(--gray);margin-bottom:10px}
+.fac-empty strong{font-family:'Playfair Display',serif;color:var(--nd);font-size:15px;display:block;margin-bottom:4px}
+.fac-empty p{color:var(--muted);font-size:12px;line-height:1.5}
+
+/* ════════════════════════════════════════════════════════════
+   EQUIPMENT MODAL
+   ════════════════════════════════════════════════════════════ */
+#mo{
+  position:fixed;inset:0;z-index:1000;background:rgba(8,30,71,.65);
+  backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;
+  padding:30px 24px;animation:fadeIn .25s ease;
+}
+#mo.open{display:flex}
+.mod{
+  background:var(--w);border-radius:14px;max-width:920px;width:100%;
+  max-height:88vh;display:flex;flex-direction:column;overflow:hidden;
+  box-shadow:var(--shadow-lg);
+}
+.mod-head{
+  padding:18px 22px;border-bottom:1px solid var(--gray);
+  display:flex;align-items:flex-start;justify-content:space-between;gap:16px;
+  background:linear-gradient(180deg,var(--off) 0%,var(--w) 100%);
+}
+.mod-head-l{flex:1;min-width:0}
+.mod-tag{font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:5px}
+.mod-title{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;
+  color:var(--nd);line-height:1.15;margin-bottom:4px;letter-spacing:-.01em}
+.mod-sub{font-size:12px;color:var(--muted);font-family:'DM Mono',monospace;line-height:1.5}
+.mod-x{
+  width:30px;height:30px;border-radius:50%;background:var(--off);
+  display:flex;align-items:center;justify-content:center;color:var(--mid);
+  font-size:16px;flex-shrink:0;transition:.2s;
+}
+.mod-x:hover{background:var(--nd);color:var(--gold)}
+
+.mod-body{display:grid;grid-template-columns:1fr 1.4fr;flex:1;overflow:hidden}
+.mod-left{background:var(--off);border-right:1px solid var(--gray);
+  display:flex;align-items:center;justify-content:center;padding:20px;position:relative;min-height:200px}
+.mod-img{max-width:100%;max-height:100%;object-fit:contain;display:none}
+.mod-ph{display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--muted)}
+.mod-ph .ico{font-size:36px;opacity:.4}
+.mod-ph p{font-size:11px;text-align:center;line-height:1.5;font-family:'DM Mono',monospace;max-width:240px}
+.mod-isrc{position:absolute;bottom:8px;right:10px;font-family:'DM Mono',monospace;
+  font-size:8.5px;color:var(--muted);letter-spacing:.05em}
+
+.mod-right{display:flex;flex-direction:column;overflow:hidden}
+.mod-tabs{display:flex;border-bottom:1px solid var(--gray);background:var(--off)}
+.tab{flex:1;padding:11px 16px;font-family:'DM Mono',monospace;font-size:10px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--muted);
+  cursor:pointer;transition:.2s;text-align:center;border-bottom:2px solid transparent}
+.tab.on{color:var(--nd);border-bottom-color:var(--gold);background:var(--w)}
+.tab:hover:not(.on){color:var(--nd);background:rgba(255,255,255,.5)}
+
+.mod-content{flex:1;overflow-y:auto;padding:20px 22px}
+.sdesc{font-size:13px;color:var(--text);line-height:1.65;margin-bottom:16px;font-weight:300}
+.ss{margin-bottom:16px}
+.ss-t{font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--nd);margin-bottom:8px}
+.st{width:100%;border-collapse:collapse;font-size:12px}
+.st td{padding:7px 0;border-bottom:1px solid var(--gray);vertical-align:top}
+.st td:first-child{font-family:'DM Mono',monospace;font-size:10px;
+  color:var(--muted);width:42%;letter-spacing:.02em}
+.st td:last-child{color:var(--text)}
+
+.spill{display:inline-block;background:var(--off);border:1px solid var(--gray);
+  border-radius:99px;padding:3px 10px;font-size:10.5px;color:var(--mid);margin:0 4px 4px 0}
+
+.vlink{display:inline-flex;align-items:center;gap:6px;margin-top:10px;
+  padding:8px 14px;background:var(--nd);color:var(--gold);
+  border-radius:8px;font-family:'DM Mono',monospace;font-size:10px;
+  letter-spacing:.06em;transition:.2s}
+.vlink:hover{background:var(--navy);transform:translateY(-1px)}
+.vlink + .vlink{margin-left:6px}
+
+.req-btn{display:inline-flex;align-items:center;gap:6px;margin-top:10px;
+  padding:8px 14px;background:var(--gold);color:var(--nd);
+  border-radius:8px;font-family:'DM Mono',monospace;font-size:10px;font-weight:500;
+  letter-spacing:.06em;transition:.2s}
+.req-btn:hover{background:var(--gl);transform:translateY(-1px)}
+
+.mod-empty{padding:20px;text-align:center;color:var(--muted);font-size:12px}
+
+.dcard{
+  display:flex;align-items:center;gap:12px;padding:14px;
+  background:var(--off);border:1px solid var(--gray);border-radius:10px;
+  margin-bottom:8px;transition:.2s;
+}
+.dcard:hover{border-color:var(--gold);background:var(--w)}
+.dico{font-size:22px;flex-shrink:0;width:38px;text-align:center}
+.dn{font-family:'Playfair Display',serif;font-size:14px;color:var(--nd);font-weight:600}
+.dt{font-size:10.5px;color:var(--muted);font-family:'DM Mono',monospace;margin-top:1px}
+
+.mod-fields{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:14px}
+.mod-field{font-size:11px}
+.mod-field .lbl{font-family:'DM Mono',monospace;font-size:9px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.mod-field .val{color:var(--text);font-weight:500}
+.status-pill{display:inline-block;padding:2px 8px;border-radius:99px;
+  font-size:10px;font-family:'DM Mono',monospace;letter-spacing:.04em}
+.s-op{background:#d4edda;color:#155724}
+.s-mt{background:#fff3cd;color:#856404}
+.s-dc{background:#f8d7da;color:#721c24}
+
+/* ════════════════════════════════════════════════════════════
+   SEARCH OVERLAY
+   ════════════════════════════════════════════════════════════ */
+#so{position:fixed;inset:0;z-index:1100;background:rgba(8,30,71,.7);
+  backdrop-filter:blur(10px);display:none;align-items:flex-start;justify-content:center;
+  padding-top:10vh;animation:fadeIn .2s ease}
+#so.open{display:flex}
+.so-box{background:var(--w);border-radius:14px;width:100%;max-width:640px;
+  overflow:hidden;box-shadow:var(--shadow-lg);max-height:75vh;display:flex;flex-direction:column}
+.so-input{padding:18px 22px;border-bottom:1px solid var(--gray);position:relative;
+  background:linear-gradient(180deg,var(--off),var(--w))}
+.so-input input{width:100%;border:none;outline:none;font-size:18px;
+  font-family:'Playfair Display',serif;color:var(--nd);background:transparent;
+  padding-left:30px}
+.so-input::before{content:'⌕';position:absolute;left:22px;top:18px;
+  font-size:22px;color:var(--gold)}
+.so-input kbd{position:absolute;right:22px;top:50%;transform:translateY(-50%);
+  font-family:'DM Mono',monospace;font-size:10px;padding:3px 7px;
+  background:var(--off);color:var(--muted);border-radius:4px;border:1px solid var(--gray)}
+.so-results{flex:1;overflow-y:auto;padding:8px}
+.so-section{padding:10px 14px 6px;font-family:'DM Mono',monospace;font-size:9px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.so-item{padding:9px 14px;border-radius:7px;cursor:pointer;display:flex;
+  align-items:center;gap:12px;transition:.15s}
+.so-item:hover,.so-item.sel{background:var(--off)}
+.so-item .typ{font-family:'DM Mono',monospace;font-size:8.5px;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--gold);
+  background:rgba(200,150,12,.1);padding:2px 6px;border-radius:4px;flex-shrink:0}
+.so-item .ttl{font-size:13px;color:var(--nd);font-weight:500;flex:1;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.so-item .meta{font-size:10px;color:var(--muted);font-family:'DM Mono',monospace}
+.so-empty{padding:30px 16px;text-align:center;color:var(--muted);font-size:12px}
+
+/* ════════════════════════════════════════════════════════════
+   ADMIN PIN MODAL (placeholder for v2 GAS hook)
+   ════════════════════════════════════════════════════════════ */
+#ad{position:fixed;inset:0;z-index:1100;background:rgba(8,30,71,.7);
+  backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;
+  padding:30px;animation:fadeIn .2s ease}
+#ad.open{display:flex}
+.ad-box{background:var(--w);border-radius:14px;padding:30px 32px;width:100%;max-width:380px;
+  text-align:center;box-shadow:var(--shadow-lg)}
+.ad-box h3{font-family:'Playfair Display',serif;font-size:22px;color:var(--nd);margin-bottom:6px}
+.ad-box p{font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:18px}
+.ad-box input{width:100%;padding:11px 14px;border:1px solid var(--gray);border-radius:8px;
+  font-size:14px;font-family:'DM Mono',monospace;text-align:center;letter-spacing:.2em;
+  margin-bottom:6px}
+.ad-box input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(200,150,12,.1)}
+.ad-err{font-size:11px;color:#c0392b;min-height:16px;margin-bottom:8px}
+.ad-actions{display:flex;gap:8px;justify-content:center}
+.ad-msg{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);margin-top:14px;line-height:1.6}
+
+/* ════════════════════════════════════════════════════════════
+   STALENESS BANNER
+   ════════════════════════════════════════════════════════════ */
+#stale{
+  position:fixed;bottom:32px;left:0;right:0;z-index:880;
+  background:var(--gold);color:var(--nd);
+  padding:8px 18px;font-family:'DM Mono',monospace;font-size:10px;
+  letter-spacing:.05em;text-align:center;display:none;
+  border-top:1px solid var(--gd);
+}
+#stale.show{display:block}
+
+/* ════════════════════════════════════════════════════════════
+   PRINT
+   ════════════════════════════════════════════════════════════ */
+@media print{
+  body,html{overflow:visible;background:var(--w);height:auto}
+  #hbar,#foot,.arw,#dots,#prog,#stale{display:none !important}
+  #deck{position:static;height:auto}
+  .slide{position:static;opacity:1;transform:none;page-break-after:always;
+    display:block;min-height:100vh}
+  .slide:not(.active){display:none}
+  .fac-slide{flex-direction:column}
+  .fac-hero{flex:none}
+}
+
+/* ════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ════════════════════════════════════════════════════════════ */
+@media (max-width:768px){
+  #s1 .body{flex-direction:column;padding:30px 6%;gap:30px;align-items:flex-start;overflow-y:auto}
+  #s1 .left,#s1 .right{flex:none;width:100%}
+  .fac-slide{flex-direction:column;overflow-y:auto}
+  .fac-hero{flex:none;padding:24px}
+  .mod-body{grid-template-columns:1fr}
+  .mod-left{border-right:none;border-bottom:1px solid var(--gray)}
+  .map-tools{flex-direction:column;align-items:stretch}
+  .map-search{max-width:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ────────────────────────────────────────────── -->
+<div id="hbar">
+  <div class="brand" onclick="goSlide('s1')" style="cursor:pointer">
+    <div class="brand-mark">K</div>
+    <div class="brand-text">
+      <strong>KLE-TU · Research Facilities</strong>
+      <small>KLE-CTIE · Hubballi</small>
+    </div>
+  </div>
+  <div class="hbtns">
+    <button class="hb" onclick="openSearch()">⌕ Search <kbd>/</kbd></button>
+    <button class="hb" onclick="goSlide('s1')">⌂ Home</button>
+    <button class="hb" onclick="goSlide('s2')">▦ Map</button>
+    <button class="hb" onclick="window.print()">⎙ Print</button>
+    <button class="hb" onclick="openAdmin()">⚿ Admin</button>
+  </div>
+</div>
+
+<div id="prog"><div id="pf"></div></div>
+
+<!-- ── DECK ──────────────────────────────────────────────── -->
+<div id="deck"></div>
+
+<!-- ── ARROWS & DOTS ─────────────────────────────────────── -->
+<button id="ap" class="arw" onclick="prevSlide()" aria-label="Previous">‹</button>
+<button id="an" class="arw" onclick="nextSlide()" aria-label="Next">›</button>
+<div id="dots"></div>
+
+<!-- ── FOOTER ────────────────────────────────────────────── -->
+<div id="foot">
+  <div id="ft">MADE WITH ♥ ~rhc · EE LAB, KLE-CTIE</div>
+  <div id="fc">
+    <span id="fc-stat">SCHEMA v1</span>
+    <span class="sep">·</span>
+    <span id="fc-upd">DATABASE LAST UPDATED: <strong id="fc-date">—</strong></span>
+  </div>
+</div>
+
+<!-- ── STALENESS BANNER ──────────────────────────────────── -->
+<div id="stale">⚠ Database not refreshed in over 60 days · Last update: <strong id="stale-date">—</strong></div>
+
+<!-- ── EQUIPMENT MODAL ───────────────────────────────────── -->
+<div id="mo" role="dialog" aria-modal="true">
+  <div class="mod">
+    <div class="mod-head">
+      <div class="mod-head-l">
+        <div class="mod-tag" id="mtag">—</div>
+        <h3 class="mod-title" id="mtitle">—</h3>
+        <div class="mod-sub" id="msub">—</div>
+      </div>
+      <button class="mod-x" onclick="closeMod()">✕</button>
+    </div>
+    <div class="mod-body">
+      <div class="mod-left">
+        <img id="mimg" class="mod-img" alt="">
+        <div id="mph" class="mod-ph"><div class="ico">▣</div><p>Loading image…</p></div>
+        <div id="misrc" class="mod-isrc"></div>
+      </div>
+      <div class="mod-right">
+        <div class="mod-tabs">
+          <div id="tab-specs" class="tab on" onclick="swTab('s')">Specs &amp; Use</div>
+          <div id="tab-docs"  class="tab"    onclick="swTab('d')">Documents</div>
+          <div id="tab-meta"  class="tab"    onclick="swTab('m')">Access &amp; Status</div>
+        </div>
+        <div id="msp" class="mod-content"></div>
+        <div id="mdp" class="mod-content" style="display:none"></div>
+        <div id="mmp" class="mod-content" style="display:none"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── SEARCH OVERLAY ────────────────────────────────────── -->
+<div id="so" role="dialog" aria-modal="true">
+  <div class="so-box">
+    <div class="so-input">
+      <input id="sq" type="text" placeholder="Search facilities, equipment, categories…" autocomplete="off">
+      <kbd>ESC</kbd>
+    </div>
+    <div id="sr" class="so-results"></div>
+  </div>
+</div>
+
+<!-- ── ADMIN MODAL ───────────────────────────────────────── -->
+<div id="ad" role="dialog" aria-modal="true">
+  <div class="ad-box">
+    <h3>Admin Access</h3>
+    <p>Enter the admin PIN to access editing tools.</p>
+    <input id="apin" type="password" maxlength="6" placeholder="● ● ● ● ● ●">
+    <div id="aerr" class="ad-err"></div>
+    <div class="ad-actions">
+      <button class="b-ghost" onclick="closeAdmin()">Cancel</button>
+      <button class="b-gold" onclick="chkAdmin()">Unlock</button>
+    </div>
+    <div class="ad-msg">In v2 (GAS migration) this unlocks per-department edit dialogs that write back to the Google Sheet.</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     EMBEDDED DATA + APPLICATION
+     ════════════════════════════════════════════════════════ -->
+<script>
+// ─── EMBEDDED DATA (Phase 2: replaces with google.script.run.getData()) ──
+const DATA = {"meta":{"schemaVersion":"v1","lastUpdated":"14 May 2026","institution":"KLE Technological University, Hubballi","unit":"KLE-CTIE"},"facilities":[{"Facility ID":"F001","Facility Name":"STAR_CEVI - Centre of Excellence in Visual Intelligence","Short Name":"CEVI","Type":"STAR Lab","Department":"Computer Science & Engineering","Building":"","Room No":"","Incharge Name":"Dean, Research","Incharge Role":"Dean (Research)","Phone":"0836-2378103","Email":"cevi@kletech.ac.in","Area (sq ft)":6000,"Established Year":"","Description (Internal)":"Visual intelligence solutions on 2D/3D data. Generative & discriminative tasks using AI/ML/DL. Digital Heritage, Agriculture, Smart Manufacturing.","Description (Public)":"","Capabilities / Services":"","Collaborating Industries":"Samsung R&D Institute","Charge Sheet":"Y","Photo URL (Primary)":"","Photo URL (Gallery)":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Facility ID":"F002","Facility Name":"STAR_SEED - Student Ecosystem for Engineered Data Lab","Short Name":"SEED","Type":"STAR Lab (Sub-facility)","Department":"Computer Science & Engineering","Building":"","Room No":"","Incharge Name":"Dean, Research","Incharge Role":"Dean (Research)","Phone":"0836-2378103","Email":"seedlab@kletech.ac.in","Area (sq ft)":"","Established Year":"","Description (Internal)":"Established with Samsung for engineered data generation and student projects in visual intelligence.","Description (Public)":"","Capabilities / Services":"","Collaborating Industries":"Samsung R&D Institute","Charge Sheet":"Y","Photo URL (Primary)":"","Photo URL (Gallery)":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Facility ID":"F003","Facility Name":"STAR_CMS - Centre of Excellence in Material Science","Short Name":"CMS","Type":"STAR Lab","Department":"Mechanical Engineering","Building":"","Room No":"","Incharge Name":"Dean, Research","Incharge Role":"Dean (Research)","Phone":"0836-2378103","Email":"cms@kletech.ac.in","Area (sq ft)":"","Established Year":"","Description (Internal)":"Design & development of novel functional materials. Synthesis, characterization, properties, modelling. Bio/synthetic polymer nanocomposites, energy storage.","Description (Public)":"","Capabilities / Services":"","Collaborating Industries":"Multiple industries","Charge Sheet":"Y","Photo URL (Primary)":"","Photo URL (Gallery)":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Facility ID":"F004","Facility Name":"STAR_CEEE - Centre of Excellence in Energy and Environment","Short Name":"CEEE","Type":"STAR Lab","Department":"Energy & Environment","Building":"","Room No":"","Incharge Name":"Dean, Research","Incharge Role":"Dean (Research)","Phone":"0836-2378103","Email":"ceee@kletech.ac.in","Area (sq ft)":"","Established Year":"","Description (Internal)":"Sustainable energy research: hydrogen production, integrated waste treatment, super capacitors. 2D layered materials (graphene, TMDs, MXenes).","Description (Public)":"","Capabilities / Services":"","Collaborating Industries":"","Charge Sheet":"Y","Photo URL (Primary)":"","Photo URL (Gallery)":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Facility ID":"F005","Facility Name":"STAR_EVIC - Electric Vehicle Innovation Centre","Short Name":"EVIC","Type":"STAR Lab","Department":"Electrical & Electronics","Building":"","Room No":"","Incharge Name":"Dean, Research","Incharge Role":"Dean (Research)","Phone":"0836-2378103","Email":"evic@kletech.ac.in","Area (sq ft)":"","Established Year":"","Description (Internal)":"EV technologies: smart e-drive systems, battery management, charging infrastructure. Motor control, battery modelling, AI/ML optimization.","Description (Public)":"","Capabilities / Services":"","Collaborating Industries":"LTTS","Charge Sheet":"Y","Photo URL (Primary)":"","Photo URL (Gallery)":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Facility ID":"F006","Facility Name":"STAR_CIM - Centre for Intelligent Mobility","Short Name":"CIM","Type":"STAR Lab","Department":"Electronics & Communication","Building":"","Room No":"","Incharge Name":"Dean, Research","Incharge Role":"Dean (Research)","Phone":"0836-2378103","Email":"cim@kletech.ac.in","Area (sq ft)":"","Established Year":"","Description (Internal)":"Smart mobility solutions: perception & navigation, V2X communication, secured connectivity. ADAS, autonomous driving.","Description (Public)":"","Capabilities / Services":"","Collaborating Industries":"LTTS, NVIDIA","Charge Sheet":"Y","Photo URL (Primary)":"","Photo URL (Gallery)":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Facility ID":"F007","Facility Name":"STAR_CAIR - Centre for AI Research","Short Name":"CAIR","Type":"STAR Lab","Department":"Computer Science & Engineering","Building":"","Room No":"","Incharge Name":"Dean, Research","Incharge Role":"Dean (Research)","Phone":"0836-2378103","Email":"cair@kletech.ac.in","Area (sq ft)":6000,"Established Year":"","Description (Internal)":"Edge computing, High Performance Computing (HPC), Intelligent Solutions for Healthcare Applications (ISHA). Medical image analysis.","Description (Public)":"","Capabilities / Services":"","Collaborating Industries":"Healthcare partners","Charge Sheet":"Y","Photo URL (Primary)":"","Photo URL (Gallery)":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Facility ID":"F008","Facility Name":"STAR_CARR - Centre for Automation and Robotics Research","Short Name":"CARR","Type":"STAR Lab","Department":"Mechanical Engineering","Building":"","Room No":"","Incharge Name":"Dean, Research","Incharge Role":"Dean (Research)","Phone":"0836-2378103","Email":"carr@kletech.ac.in","Area (sq ft)":"","Established Year":"","Description (Internal)":"Robotics & intelligent automation: AI in manufacturing, smart warehouse environment. Value chain optimization.","Description (Public)":"","Capabilities / Services":"","Collaborating Industries":"Dassault Systèmes","Charge Sheet":"Y","Photo URL (Primary)":"","Photo URL (Gallery)":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Facility ID":"F009","Facility Name":"STAR_CICS - Centre for Integrated Circuits and Systems","Short Name":"CICS","Type":"STAR Lab","Department":"Electronics & Communication","Building":"","Room No":"","Incharge Name":"Dean, Research","Incharge Role":"Dean (Research)","Phone":"0836-2378103","Email":"cics@kletech.ac.in","Area (sq ft)":"","Established Year":"","Description (Internal)":"VLSI Design, Mixed Signal SoC Design, Verification, DFT, IP Development. Advanced Packaging Analysis, 2.5D/3D System Integration.","Description (Public)":"","Capabilities / Services":"","Collaborating Industries":"Synopsys, Siemens, AMD, Intel, Micron, TCS, HCL, L&T","Charge Sheet":"Y","Photo URL (Primary)":"","Photo URL (Gallery)":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Facility ID":"F010","Facility Name":"MakerSpace - Central Prototyping & Manufacturing Facility","Short Name":"MakerSpace","Type":"Central Maker Facility","Department":"Interdisciplinary","Building":"","Room No":"","Incharge Name":"Praveenkumar M Petkar","Incharge Role":"Facilities Coordinator","Phone":"+91 9964476030","Email":"praveenkumar@bvb.edu","Area (sq ft)":10000,"Established Year":3,"Description (Internal)":"Central facility for product development and realization. Provides modern design, prototyping, and manufacturing facilities for electro-mechanical products. Open to students, faculty, and entrepreneurs. Safety training required.","Description (Public)":"","Capabilities / Services":"","Collaborating Industries":"Open to all entrepreneurs & industry partners","Charge Sheet":"Y","Photo URL (Primary)":"","Photo URL (Gallery)":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Facility ID":"F011","Facility Name":"School of Mechanical Engineering Lab Complex","Short Name":"MECH","Type":"Department Lab","Department":"Mechanical Engineering","Building":"","Room No":"","Incharge Name":"","Incharge Role":"HOD - Mechanical","Phone":"0836-2378103","Email":"mech@kletech.ac.in","Area (sq ft)":"","Established Year":"","Description (Internal)":"Complete mechanical engineering lab facility with manufacturing, metrology, and testing equipment.","Description (Public)":"","Capabilities / Services":"","Collaborating Industries":"","Charge Sheet":"Y","Photo URL (Primary)":"","Photo URL (Gallery)":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Facility ID":"F012","Facility Name":"School of Electronics & Communication Lab Complex","Short Name":"ECE","Type":"Department Lab","Department":"Electronics & Communication","Building":"","Room No":"","Incharge Name":"","Incharge Role":"HOD - E&C","Phone":"0836-2378103","Email":"ece@kletech.ac.in","Area (sq ft)":"","Established Year":"","Description (Internal)":"VLSI, embedded systems, communication, and signal processing laboratories.","Description (Public)":"","Capabilities / Services":"","Collaborating Industries":"","Charge Sheet":"Y","Photo URL (Primary)":"","Photo URL (Gallery)":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Facility ID":"F013","Facility Name":"Department of Biotechnology Lab Complex","Short Name":"BT","Type":"Department Lab","Department":"Biotechnology","Building":"","Room No":"","Incharge Name":"","Incharge Role":"HOD - Biotech","Phone":"0836-2378103","Email":"biotech@kletech.ac.in","Area (sq ft)":"","Established Year":"","Description (Internal)":"Fermentation, molecular biology, analytical biochemistry laboratories.","Description (Public)":"","Capabilities / Services":"","Collaborating Industries":"","Charge Sheet":"Y","Photo URL (Primary)":"","Photo URL (Gallery)":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Facility ID":"F014","Facility Name":"School of Computer Science Lab Complex","Short Name":"CSE","Type":"Department Lab","Department":"Computer Science & Engineering","Building":"","Room No":"","Incharge Name":"","Incharge Role":"HOD - CSE","Phone":"0836-2378103","Email":"cse@kletech.ac.in","Area (sq ft)":"","Established Year":"","Description (Internal)":"Computing labs, AI/ML infrastructure, server room.","Description (Public)":"","Capabilities / Services":"","Collaborating Industries":"","Charge Sheet":"Y","Photo URL (Primary)":"","Photo URL (Gallery)":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Facility ID":"F015","Facility Name":"School of Civil Engineering Lab Complex","Short Name":"CIVIL","Type":"Department Lab","Department":"Civil Engineering","Building":"","Room No":"","Incharge Name":"","Incharge Role":"HOD - Civil","Phone":"0836-2378103","Email":"civil@kletech.ac.in","Area (sq ft)":"","Established Year":"","Description (Internal)":"Structures, geotechnical, transportation, environmental engineering labs.","Description (Public)":"","Capabilities / Services":"","Collaborating Industries":"","Charge Sheet":"Y","Photo URL (Primary)":"","Photo URL (Gallery)":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Facility ID":"F016","Facility Name":"Department of Electrical Engineering Lab Complex","Short Name":"EEE","Type":"Department Lab","Department":"Electrical & Electronics","Building":"","Room No":"","Incharge Name":"","Incharge Role":"HOD - Electrical","Phone":"0836-2378103","Email":"electrical@kletech.ac.in","Area (sq ft)":"","Established Year":"","Description (Internal)":"Power systems, machines, drives, control systems laboratories.","Description (Public)":"","Capabilities / Services":"","Collaborating Industries":"","Charge Sheet":"Y","Photo URL (Primary)":"","Photo URL (Gallery)":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Facility ID":"F017","Facility Name":"Department of Automation & Robotics Lab Complex","Short Name":"AR","Type":"Department Lab","Department":"Automation & Robotics","Building":"","Room No":"","Incharge Name":"","Incharge Role":"HOD - A&R","Phone":"0836-2378103","Email":"autrob@kletech.ac.in","Area (sq ft)":"","Established Year":"","Description (Internal)":"Industrial automation, robotics, control systems laboratories.","Description (Public)":"","Capabilities / Services":"","Collaborating Industries":"Bosch, ABB","Charge Sheet":"Y","Photo URL (Primary)":"","Photo URL (Gallery)":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Facility ID":"F018","Facility Name":"Department of Physics Lab","Short Name":"PHY","Type":"Department Lab","Department":"Physics","Building":"","Room No":"","Incharge Name":"","Incharge Role":"HOD - Physics","Phone":"0836-2378103","Email":"physics@kletech.ac.in","Area (sq ft)":"","Established Year":"","Description (Internal)":"Materials characterization, semiconductor physics laboratory.","Description (Public)":"","Capabilities / Services":"","Collaborating Industries":"","Charge Sheet":"Y","Photo URL (Primary)":"","Photo URL (Gallery)":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Facility ID":"F019","Facility Name":"School of Architecture Studio Complex","Short Name":"ARCH","Type":"Department Lab","Department":"Architecture","Building":"","Room No":"","Incharge Name":"","Incharge Role":"HOD - Architecture","Phone":"0836-2378103","Email":"architecture@kletech.ac.in","Area (sq ft)":"","Established Year":"","Description (Internal)":"Design studios, climatology lab, computer lab.","Description (Public)":"","Capabilities / Services":"","Collaborating Industries":"","Charge Sheet":"Y","Photo URL (Primary)":"","Photo URL (Gallery)":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Facility ID":"F020","Facility Name":"School of Management Studies Lab","Short Name":"MGMT","Type":"Department Lab","Department":"Management Studies","Building":"","Room No":"","Incharge Name":"","Incharge Role":"HOD - Management","Phone":"0836-2378103","Email":"management@kletech.ac.in","Area (sq ft)":"","Established Year":"","Description (Internal)":"Computer lab, seminar hall with AV facilities.","Description (Public)":"","Capabilities / Services":"","Collaborating Industries":"","Charge Sheet":"Y","Photo URL (Primary)":"","Photo URL (Gallery)":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Facility ID":"F021","Facility Name":"Center for Innovation & Product Development (CIPD)","Short Name":"CIPD","Type":"Innovation Center","Department":"Interdisciplinary","Building":"","Room No":"","Incharge Name":"Dr. Ravi Guttal","Incharge Role":"Director","Phone":"+91 9923800242","Email":"ravi_o@bvb.edu","Area (sq ft)":"","Established Year":"","Description (Internal)":"Supports product innovation and development across campus. Works closely with MakerSpace and STAR labs.","Description (Public)":"","Capabilities / Services":"","Collaborating Industries":"","Charge Sheet":"Y","Photo URL (Primary)":"","Photo URL (Gallery)":"","Last Verified":"","Publish Status":"Draft","Public":"N"}],"equipment":[{"Equipment ID":"EQ001","Equipment Name":"Autodesk Utility","Make":"","Model":"","Category":"General Lab Equipment","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":600000,"Procurement Year":"","Facility IDs":"F001","Application":"Design software","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ002","Equipment Name":"Ceramic 3D Printer","Make":"","Model":"","Category":"3D Printer","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":530400,"Procurement Year":"","Facility IDs":"F002","Application":"Additive manufacturing","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ003","Equipment Name":"Electrochemical Workstation","Make":"","Model":"","Category":"Workstation","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":1189500,"Procurement Year":"","Facility IDs":"F003,F004","Application":"Materials characterization","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ004","Equipment Name":"QCar - Self Driving Car Research Studio","Make":"","Model":"","Category":"Other Software","Equipment Class":"Software","Quantity":1,"Cost (₹)":7271000,"Procurement Year":"","Facility IDs":"F006","Application":"Autonomous vehicle research","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ005","Equipment Name":"Web Based 3D Experience","Make":"","Model":"","Category":"Other Software","Equipment Class":"Software","Quantity":1,"Cost (₹)":650160,"Procurement Year":"","Facility IDs":"F008","Application":"3D design platform","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ006","Equipment Name":"Electric Drives Lab","Make":"","Model":"","Category":"EV Test Equipment","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":813520,"Procurement Year":"","Facility IDs":"F005","Application":"Motor drives research","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ007","Equipment Name":"dSPACE ADAS HIL","Make":"","Model":"","Category":"ADAS / HIL Platform","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":7857617,"Procurement Year":"","Facility IDs":"F006","Application":"ADAS testing","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ008","Equipment Name":"Electric Vehicle Support Machine","Make":"","Model":"","Category":"EV Test Equipment","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":5825000,"Procurement Year":"","Facility IDs":"F005","Application":"EV testing","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ009","Equipment Name":"Centre of Excellence in Visual Intelligence Lab","Make":"","Model":"","Category":"General Lab Equipment","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":4894120,"Procurement Year":"","Facility IDs":"F001","Application":"Visual computing infrastructure","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ010","Equipment Name":"ANSYS Academic Multiphysics Campus Solution","Make":"","Model":"","Category":"General Lab Equipment","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":2350000,"Procurement Year":"","Facility IDs":"F020","Application":"Simulation software","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ011","Equipment Name":"ESDM Lab at HEX","Make":"","Model":"","Category":"General Lab Equipment","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":2086058,"Procurement Year":"","Facility IDs":"F009","Application":"Electronics design","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ012","Equipment Name":"Altair Hyperworks","Make":"","Model":"","Category":"EDA / Simulation Software","Equipment Class":"Software","Quantity":"","Cost (₹)":2071823,"Procurement Year":"","Facility IDs":"F003,F008","Application":"Simulation software","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ013","Equipment Name":"Distributed Deep Learning for Healthcare","Make":"","Model":"","Category":"AI / Cloud Software","Equipment Class":"Software","Quantity":"","Cost (₹)":1947219,"Procurement Year":"","Facility IDs":"F007","Application":"Healthcare AI","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ014","Equipment Name":"Bionic Research Group","Make":"","Model":"","Category":"Robotics Platform","Equipment Class":"Hardware","Quantity":"","Cost (₹)":1935404,"Procurement Year":"","Facility IDs":"F008","Application":"Robotics research","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ015","Equipment Name":"Electric Vehicle Lab","Make":"","Model":"","Category":"EV Test Equipment","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":1785000,"Procurement Year":"","Facility IDs":"F005","Application":"EV research","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ016","Equipment Name":"Fluid Mechanics Laboratory","Make":"","Model":"","Category":"General Lab Equipment","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":1609105,"Procurement Year":"","Facility IDs":"F010","Application":"Fluid mechanics","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ017","Equipment Name":"WorkStations (2)","Make":"","Model":"","Category":"Workstation","Equipment Class":"Hardware","Quantity":2,"Cost (₹)":1520000,"Procurement Year":"","Facility IDs":"F007,F001","Application":"High performance computing","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ018","Equipment Name":"Private Cloud Setup","Make":"","Model":"","Category":"Workstation","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":1333500,"Procurement Year":"","Facility IDs":"F020","Application":"Cloud infrastructure","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ019","Equipment Name":"Long Computing Server/Workstation","Make":"","Model":"","Category":"Workstation","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":1300000,"Procurement Year":"","Facility IDs":"F007","Application":"Research computing","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ020","Equipment Name":"COD Measurement Set-Up","Make":"","Model":"","Category":"Environmental Test Setup","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":1208506,"Procurement Year":"","Facility IDs":"F004","Application":"Water quality analysis","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ021","Equipment Name":"Potentiostat (Five channel)","Make":"","Model":"","Category":"Electrochemical Workstation","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":1850000,"Procurement Year":"","Facility IDs":"F003,F004","Application":"Electrochemical analysis","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ022","Equipment Name":"Potentiostat (Dual channel)","Make":"","Model":"","Category":"Electrochemical Workstation","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":1497385,"Procurement Year":"","Facility IDs":"F003,F004","Application":"Electrochemical analysis","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ023","Equipment Name":"Workstation - Asus AUK Zeus","Make":"","Model":"","Category":"Workstation","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":1086000,"Procurement Year":"","Facility IDs":"F007,F001","Application":"High performance computing","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ024","Equipment Name":"Capture PCs (Asus AUK Zeus)","Make":"","Model":"","Category":"Workstation","Equipment Class":"Hardware","Quantity":2,"Cost (₹)":1938000,"Procurement Year":"","Facility IDs":"F001","Application":"Data capture","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ025","Equipment Name":"Dynamic 3D Content Creation Camera","Make":"","Model":"","Category":"Imaging / 3D Capture","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":420000,"Procurement Year":"","Facility IDs":"F001","Application":"3D capture","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ026","Equipment Name":"3D Scanner - Einscan H","Make":"","Model":"","Category":"Metrology Equipment","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":737000,"Procurement Year":"","Facility IDs":"F001,F008","Application":"3D scanning","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ027","Equipment Name":"Mitutoyo Slip Gauge Block Set","Make":"","Model":"","Category":"General Lab Equipment","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":248680,"Procurement Year":"2015-16","Facility IDs":"F010","Application":"Precision metrology","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ028","Equipment Name":"Dell VOSTRO 3020 Computers","Make":"","Model":"","Category":"Workstation","Equipment Class":"Hardware","Quantity":82,"Cost (₹)":2804400,"Procurement Year":"2015-16","Facility IDs":"F013","Application":"Computing lab","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ029","Equipment Name":"Minitab Software-17","Make":"","Model":"","Category":"Statistical / Analytics SW","Equipment Class":"Software","Quantity":10,"Cost (₹)":380010,"Procurement Year":"2015-16","Facility IDs":"F010","Application":"Statistical analysis","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ030","Equipment Name":"PP906 Picoscope 2204A","Make":"","Model":"","Category":"General Lab Equipment","Equipment Class":"Hardware","Quantity":20,"Cost (₹)":286960,"Procurement Year":"2016-17","Facility IDs":"F010","Application":"PC-based oscilloscope","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ031","Equipment Name":"Vertical Screw Type Plastic Injection Moulding Machine","Make":"","Model":"","Category":"Manufacturing Equipment","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":791890,"Procurement Year":"2016-17","Facility IDs":"F010","Application":"Manufacturing","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ032","Equipment Name":"Cubepro 3D Printers","Make":"","Model":"","Category":"3D Printer","Equipment Class":"Hardware","Quantity":2,"Cost (₹)":1050000,"Procurement Year":"2016-17","Facility IDs":"F010","Application":"Additive manufacturing","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ033","Equipment Name":"Universal Cylindrical Grinding Machine","Make":"","Model":"","Category":"Grinding Machine","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":1159312,"Procurement Year":"2016-17","Facility IDs":"F010","Application":"Precision grinding","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ034","Equipment Name":"Laser Cutting Machine","Make":"","Model":"","Category":"General Lab Equipment","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":1447031,"Procurement Year":"2016-17","Facility IDs":"F010","Application":"Laser processing","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ035","Equipment Name":"Plasma Cutting Machine","Make":"","Model":"","Category":"General Lab Equipment","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":841575,"Procurement Year":"2016-17","Facility IDs":"F010","Application":"Metal cutting","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ036","Equipment Name":"Universal Tool & Cutter Grinding Machine","Make":"","Model":"","Category":"Grinding Machine","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":986499,"Procurement Year":"2016-17","Facility IDs":"F010","Application":"Tool grinding","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ037","Equipment Name":"HP Intel Core i7-6700 Computers","Make":"","Model":"","Category":"Workstation","Equipment Class":"Hardware","Quantity":25,"Cost (₹)":1369918,"Procurement Year":"2016-17","Facility IDs":"F010,F013","Application":"High performance computing","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ038","Equipment Name":"3D Plant Design Software","Make":"","Model":"","Category":"Other Software","Equipment Class":"Software","Quantity":15,"Cost (₹)":363000,"Procurement Year":"2016-17","Facility IDs":"F010","Application":"Plant design","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ039","Equipment Name":"Adams MD Motion Bundle","Make":"","Model":"","Category":"Other Software","Equipment Class":"Software","Quantity":50,"Cost (₹)":867600,"Procurement Year":"2016-17","Facility IDs":"F010","Application":"Multibody dynamics","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ040","Equipment Name":"PLM 3D Experience Platform","Make":"","Model":"","Category":"Other Software","Equipment Class":"Software","Quantity":300,"Cost (₹)":4189774,"Procurement Year":"2017-18","Facility IDs":"F010,F008","Application":"Product lifecycle management","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ041","Equipment Name":"UTM Digital with 100T Capacity","Make":"","Model":"","Category":"General Lab Equipment","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":2059100,"Procurement Year":"2018-19","Facility IDs":"F010,F014","Application":"Materials testing","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ042","Equipment Name":"CMX600V DMG Mori CNC VMC","Make":"","Model":"","Category":"CNC Machine","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":11500000,"Procurement Year":"2018-19","Facility IDs":"F010","Application":"Precision machining","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ043","Equipment Name":"ERP Software - SAP Business","Make":"","Model":"","Category":"Other Software","Equipment Class":"Software","Quantity":20,"Cost (₹)":1732999,"Procurement Year":"2018-19","Facility IDs":"F010,F019","Application":"Enterprise resource planning","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ044","Equipment Name":"Bottom Pouring Stir Casting Machine","Make":"","Model":"","Category":"General Lab Equipment","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":542800,"Procurement Year":"2019-20","Facility IDs":"F010","Application":"Composite materials","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ045","Equipment Name":"Metallurgical Microscope","Make":"","Model":"","Category":"General Lab Equipment","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":501500,"Procurement Year":"2019-20","Facility IDs":"F010,F003","Application":"Materials characterization","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ046","Equipment Name":"Computerized Vickers Hardness Tester","Make":"","Model":"","Category":"Workstation","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":348100,"Procurement Year":"2019-20","Facility IDs":"F010","Application":"Hardness testing","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ047","Equipment Name":"Computerized Brinell Hardness Tester","Make":"","Model":"","Category":"Workstation","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":365800,"Procurement Year":"2019-20","Facility IDs":"F010","Application":"Hardness testing","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ048","Equipment Name":"Digital Motorized Rockwell Hardness Tester","Make":"","Model":"","Category":"General Lab Equipment","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":194700,"Procurement Year":"2019-20","Facility IDs":"F010","Application":"Hardness testing","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ049","Equipment Name":"Bosch Training Equipments","Make":"","Model":"","Category":"General Lab Equipment","Equipment Class":"Hardware","Quantity":"Set","Cost (₹)":417071,"Procurement Year":"2019-20","Facility IDs":"F010,F016","Application":"Automation training","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ050","Equipment Name":"89C51ED2 Embedded Evaluation Boards","Make":"","Model":"","Category":"General Lab Equipment","Equipment Class":"Hardware","Quantity":"Multiple","Cost (₹)":690916,"Procurement Year":"2016-17","Facility IDs":"F011","Application":"Embedded systems","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ051","Equipment Name":"Matlab Campus Wide Licenses","Make":"","Model":"","Category":"EDA / Simulation Software","Equipment Class":"Software","Quantity":"","Cost (₹)":2499170,"Procurement Year":"2016-17","Facility IDs":"F011,F013","Application":"Numerical computing","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ052","Equipment Name":"LabView & DAC Cards","Make":"","Model":"","Category":"General Lab Equipment","Equipment Class":"Hardware","Quantity":"","Cost (₹)":1075040,"Procurement Year":"2016-17","Facility IDs":"F011","Application":"Virtual instrumentation","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ053","Equipment Name":"PCB Prototyping Machine","Make":"","Model":"","Category":"Workstation","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":2299900,"Procurement Year":"2016-17","Facility IDs":"F011","Application":"PCB fabrication","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ054","Equipment Name":"Quanser Servo Cubes","Make":"","Model":"","Category":"General Lab Equipment","Equipment Class":"Hardware","Quantity":"","Cost (₹)":2475091,"Procurement Year":"2016-17","Facility IDs":"F011","Application":"Control systems","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ055","Equipment Name":"FPGA Kits","Make":"","Model":"","Category":"General Lab Equipment","Equipment Class":"Hardware","Quantity":"Multiple","Cost (₹)":538050,"Procurement Year":"2017-18","Facility IDs":"F011","Application":"Digital design","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ056","Equipment Name":"ARM7 2148 Boards","Make":"","Model":"","Category":"General Lab Equipment","Equipment Class":"Hardware","Quantity":"Multiple","Cost (₹)":718255,"Procurement Year":"2017-18","Facility IDs":"F011","Application":"Embedded systems","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ057","Equipment Name":"Cadence Software","Make":"","Model":"","Category":"CAD / Design Software","Equipment Class":"Software","Quantity":"","Cost (₹)":2773000,"Procurement Year":"2017-18","Facility IDs":"F011,F009","Application":"VLSI design","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ058","Equipment Name":"NI-USRP SDR Kits","Make":"","Model":"","Category":"General Lab Equipment","Equipment Class":"Hardware","Quantity":"","Cost (₹)":2513507,"Procurement Year":"2017-18","Facility IDs":"F011","Application":"Software defined radio","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ059","Equipment Name":"Matlab Server","Make":"","Model":"","Category":"EDA / Simulation Software","Equipment Class":"Software","Quantity":"","Cost (₹)":3242474,"Procurement Year":"2017-18","Facility IDs":"F011,F013","Application":"Numerical computing","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ060","Equipment Name":"E9000B-ADS Premier+EM Pro Software","Make":"","Model":"","Category":"RF / EM Software","Equipment Class":"Software","Quantity":"","Cost (₹)":854995,"Procurement Year":"2018-19","Facility IDs":"F011","Application":"Electromagnetic simulation","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ061","Equipment Name":"Cadence University Bundle","Make":"","Model":"","Category":"CAD / Design Software","Equipment Class":"Software","Quantity":"","Cost (₹)":2124000,"Procurement Year":"2018-19","Facility IDs":"F011,F009","Application":"VLSI design","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ062","Equipment Name":"Xilinx Vivado Design Suite","Make":"","Model":"","Category":"Other Software","Equipment Class":"Software","Quantity":"","Cost (₹)":197010,"Procurement Year":"2019-20","Facility IDs":"F011","Application":"FPGA design","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ063","Equipment Name":"Refrigerated Centrifuge","Make":"","Model":"","Category":"General Lab Equipment","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":248843,"Procurement Year":"2016-17","Facility IDs":"F012","Application":"Sample preparation","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ064","Equipment Name":"UV Spectrophotometer","Make":"","Model":"","Category":"General Lab Equipment","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":414750,"Procurement Year":"2016-17","Facility IDs":"F012","Application":"Analysis","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ065","Equipment Name":"Fermenter 5Ltr Capacity","Make":"","Model":"","Category":"Biotech Equipment","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":1001875,"Procurement Year":"2016-17","Facility IDs":"F012","Application":"Fermentation","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ066","Equipment Name":"Bio-ERA PCR Machine","Make":"","Model":"","Category":"Workstation","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":170250,"Procurement Year":"2016-17","Facility IDs":"F012","Application":"DNA amplification","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ067","Equipment Name":"CO2 Incubator","Make":"","Model":"","Category":"General Lab Equipment","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":785800,"Procurement Year":"2017-18","Facility IDs":"F012","Application":"Cell culture","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ068","Equipment Name":"Cooling Centrifuge","Make":"","Model":"","Category":"General Lab Equipment","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":619589,"Procurement Year":"2018-19","Facility IDs":"F012","Application":"Sample preparation","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ069","Equipment Name":"Water Purification System","Make":"","Model":"","Category":"Environmental Test Setup","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":563263,"Procurement Year":"2018-19","Facility IDs":"F012","Application":"Pure water","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ070","Equipment Name":"Fermenter 5 & 50 Litre","Make":"","Model":"","Category":"Biotech Equipment","Equipment Class":"Hardware","Quantity":2,"Cost (₹)":3685000,"Procurement Year":"2018-19","Facility IDs":"F012","Application":"Fermentation","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ071","Equipment Name":"HPLC System with Accessories","Make":"","Model":"","Category":"General Lab Equipment","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":1325000,"Procurement Year":"2018-19","Facility IDs":"F012","Application":"Chromatography","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ072","Equipment Name":"Trinocular Microscope","Make":"","Model":"","Category":"General Lab Equipment","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":300900,"Procurement Year":"2018-19","Facility IDs":"F012","Application":"Microscopy","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ073","Equipment Name":"Microplate Spectrophotometer","Make":"","Model":"","Category":"General Lab Equipment","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":619500,"Procurement Year":"2019-20","Facility IDs":"F012","Application":"Immunoassays","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ074","Equipment Name":"NVIDIA Server","Make":"","Model":"","Category":"Workstation","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":11346874,"Procurement Year":"2018-19","Facility IDs":"F007,F013","Application":"AI/Deep learning","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ075","Equipment Name":"Dell Server","Make":"","Model":"","Category":"Workstation","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":2971901,"Procurement Year":"2018-19","Facility IDs":"F013","Application":"Server infrastructure","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ076","Equipment Name":"HP Z8 G4 Workstation","Make":"","Model":"","Category":"Workstation","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":596490,"Procurement Year":"2019-20","Facility IDs":"F007,F013","Application":"High performance computing","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ077","Equipment Name":"CYPE Software","Make":"","Model":"","Category":"Other Software","Equipment Class":"Software","Quantity":"","Cost (₹)":300000,"Procurement Year":"2015-16","Facility IDs":"F014","Application":"Structural analysis","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ078","Equipment Name":"Primavera P6 Software","Make":"","Model":"","Category":"Other Software","Equipment Class":"Software","Quantity":"","Cost (₹)":999410,"Procurement Year":"2016-17","Facility IDs":"F014","Application":"Project management","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ079","Equipment Name":"ABAQUS & J-OCTA Software","Make":"","Model":"","Category":"Other Software","Equipment Class":"Software","Quantity":"","Cost (₹)":1576885,"Procurement Year":"2016-17","Facility IDs":"F014","Application":"Simulation","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ080","Equipment Name":"Total Station (Multiple)","Make":"","Model":"","Category":"General Lab Equipment","Equipment Class":"Hardware","Quantity":9,"Cost (₹)":3074099,"Procurement Year":"2016-19","Facility IDs":"F014","Application":"Surveying","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ081","Equipment Name":"Wheel Rut Tester","Make":"","Model":"","Category":"General Lab Equipment","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":585000,"Procurement Year":"2018-19","Facility IDs":"F014","Application":"Pavement testing","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ082","Equipment Name":"Automatic Marshal Compactor & Tester","Make":"","Model":"","Category":"General Lab Equipment","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":571356,"Procurement Year":"2019-20","Facility IDs":"F014","Application":"Bitumen testing","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ083","Equipment Name":"ST-EMB_EDU-25 Software","Make":"","Model":"","Category":"Other Software","Equipment Class":"Software","Quantity":"","Cost (₹)":1221870,"Procurement Year":"2016-17","Facility IDs":"F015","Application":"Embedded systems","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ084","Equipment Name":"Texas Instruments HVMC Kit","Make":"","Model":"","Category":"General Lab Equipment","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":265069,"Procurement Year":"2016-17","Facility IDs":"F015","Application":"Motor control","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ085","Equipment Name":"Motor-Generator Sets with Controllers","Make":"","Model":"","Category":"General Lab Equipment","Equipment Class":"Hardware","Quantity":"Multiple","Cost (₹)":1386000,"Procurement Year":"2017-18","Facility IDs":"F015","Application":"Machines lab","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ086","Equipment Name":"MiPower Software","Make":"","Model":"","Category":"Other Software","Equipment Class":"Software","Quantity":5,"Cost (₹)":600000,"Procurement Year":"2019-20","Facility IDs":"F015","Application":"Power systems","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ087","Equipment Name":"Bosch Rexroth Automation Kits","Make":"","Model":"","Category":"General Lab Equipment","Equipment Class":"Hardware","Quantity":"Multiple","Cost (₹)":561228,"Procurement Year":"2015-16","Facility IDs":"F016","Application":"Industrial automation","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ088","Equipment Name":"3D Printing Machine","Make":"","Model":"","Category":"3D Printer","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":2301000,"Procurement Year":"2017-18","Facility IDs":"F016","Application":"Additive manufacturing","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ089","Equipment Name":"Mobile Open Frame Real Time Target Machine","Make":"","Model":"","Category":"General Lab Equipment","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":2058384,"Procurement Year":"2017-18","Facility IDs":"F016","Application":"Real-time systems","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ090","Equipment Name":"Automation Studio Software","Make":"","Model":"","Category":"Other Software","Equipment Class":"Software","Quantity":"","Cost (₹)":1207282,"Procurement Year":"2018-19","Facility IDs":"F016","Application":"Automation design","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ091","Equipment Name":"NVIDIA/XAVIER Development Kits","Make":"","Model":"","Category":"General Lab Equipment","Equipment Class":"Hardware","Quantity":2,"Cost (₹)":290495,"Procurement Year":"2019-20","Facility IDs":"F016","Application":"AI/Robotics","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ092","Equipment Name":"Driver AGX Pegasus Development Kit","Make":"","Model":"","Category":"General Lab Equipment","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":211173,"Procurement Year":"2019-20","Facility IDs":"F016","Application":"Autonomous systems","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ093","Equipment Name":"HP 400G6 Desktop with Quadro Graphics","Make":"","Model":"","Category":"General Lab Equipment","Equipment Class":"Hardware","Quantity":"Multiple","Cost (₹)":1693300,"Procurement Year":"2019-20","Facility IDs":"F016","Application":"High performance computing","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ094","Equipment Name":"Workstations (Dell Precision 7920, HP Z6)","Make":"","Model":"","Category":"Workstation","Equipment Class":"Hardware","Quantity":2,"Cost (₹)":2415460,"Procurement Year":"2019-20","Facility IDs":"F016","Application":"High performance computing","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ095","Equipment Name":"Mechanics Kits","Make":"","Model":"","Category":"General Lab Equipment","Equipment Class":"Hardware","Quantity":"Multiple","Cost (₹)":654867,"Procurement Year":"2015-16","Facility IDs":"F017","Application":"Physics education","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ096","Equipment Name":"Four Probe Method Setup","Make":"","Model":"","Category":"General Lab Equipment","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":94833,"Procurement Year":"2017-18","Facility IDs":"F017","Application":"Semiconductor characterization","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ097","Equipment Name":"Electronics Measurement Equipment","Make":"","Model":"","Category":"General Lab Equipment","Equipment Class":"Hardware","Quantity":"","Cost (₹)":150272,"Procurement Year":"2018-19","Facility IDs":"F017","Application":"Physics lab","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ098","Equipment Name":"BenQ Projector & Screen","Make":"","Model":"","Category":"General Lab Equipment","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":236710,"Procurement Year":"2019-20","Facility IDs":"F019","Application":"AV equipment","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ099","Equipment Name":"Optima Projectors & Screens","Make":"","Model":"","Category":"General Lab Equipment","Equipment Class":"Hardware","Quantity":2,"Cost (₹)":122113,"Procurement Year":"2019-20","Facility IDs":"F019","Application":"AV equipment","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ100","Equipment Name":"CNC Turning Centre (2 Nos.)","Make":"","Model":"","Category":"CNC Machine","Equipment Class":"Hardware","Quantity":2,"Cost (₹)":"","Procurement Year":"","Facility IDs":"F010","Application":"High-speed precision CNC turning center for cylindrical parts. Max speed 4000 RPM, positional accuracy ±0.005mm. FANUC Oi Mate TD control.","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ101","Equipment Name":"CNC Vertical Machining Centre (2 Nos.)","Make":"","Model":"","Category":"CNC Machine","Equipment Class":"Hardware","Quantity":2,"Cost (₹)":"","Procurement Year":"","Facility IDs":"F010","Application":"Vertical machining center for tight-tolerance milling, die and mold work. 9000 RPM spindle, ±0.005mm repeatability. FANUC OI Mate MD control.","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ102","Equipment Name":"CNC Vertical Machining Centre (DMG MORI)","Make":"","Model":"","Category":"CNC Machine","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":"","Procurement Year":"","Facility IDs":"F010","Application":"High-speed precision machine for aerospace applications. 12,000 RPM spindle, HEIDENHAIN control. Titanium, stainless, exotic alloy machining.","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ103","Equipment Name":"CNC Wire EDM Machine","Make":"","Model":"","Category":"CNC Machine","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":"","Procurement Year":"","Facility IDs":"F010","Application":"Electric Discharge Machining for difficult-to-machine materials. 0.25mm wire diameter, ±0.003mm accuracy, 200mm max workpiece height.","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ104","Equipment Name":"CNC Router","Make":"","Model":"","Category":"CNC Machine","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":"","Procurement Year":"","Facility IDs":"F010","Application":"Computer-controlled cutting for wood, composites, aluminum, plastics. 1200x600x120mm working area, 24,000 RPM spindle.","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ105","Equipment Name":"CNC Laser Cutting Machine","Make":"","Model":"","Category":"CNC Machine","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":"","Procurement Year":"","Facility IDs":"F010","Application":"180W CO2 laser, cuts acrylic (30mm), MDF (8mm), stainless steel (0.8mm). 1220x2440mm working area, <0.01mm positional accuracy.","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ106","Equipment Name":"CNC Plasma Cutting Machine","Make":"","Model":"","Category":"CNC Machine","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":"","Procurement Year":"","Facility IDs":"F010","Application":"Cuts steel, stainless steel, aluminum, copper. 0.3mm-25mm thickness, 1500x3000mm cutting area. 3Ph, 415V, 20HP.","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ107","Equipment Name":"3D Desktop Milling Machine","Make":"","Model":"","Category":"CNC Machine","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":"","Procurement Year":"","Facility IDs":"F010","Application":"PCB prototyping, acrylic, wax. Ideal for in-house prototyping, chemical-free processing.","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ108","Equipment Name":"3D Printing Machine - AION 500","Make":"","Model":"","Category":"3D Printer","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":"","Procurement Year":"","Facility IDs":"F010","Application":"Industrial grade 3D printer, 500x500x500mm build volume. ABS, PLA, HIPS, PETG, Carbon fiber. 16 micron XY precision.","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ109","Equipment Name":"3D Imager - FARO Cobalt Array","Make":"","Model":"","Category":"Metrology Equipment","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":"","Procurement Year":"","Facility IDs":"F010","Application":"Metrology-grade non-contact scanner using blue light technology. Millions of high-resolution 3D measurements in seconds. For dimensional inspection and reverse engineering.","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ110","Equipment Name":"Portable Coordinate Measuring Machine - FARO Arm","Make":"","Model":"","Category":"Metrology Equipment","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":"","Procurement Year":"","Facility IDs":"F010","Application":"Portable CMM for 3D inspections, tool certifications, CAD comparison, reverse engineering. 1200mm spherical working volume, 0.018mm accuracy.","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ111","Equipment Name":"Vertical Plastic Injection Molding Machine","Make":"","Model":"","Category":"Manufacturing Equipment","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":"","Procurement Year":"","Facility IDs":"F010","Application":"Produces plastic items from disposable goods to high-precision components. 60gm max injection shot, 30T mould clamping.","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ112","Equipment Name":"Universal Cylindrical Grinding Machine","Make":"","Model":"","Category":"Grinding Machine","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":"","Procurement Year":"","Facility IDs":"F010","Application":"Grinds external and internal cylindrical surfaces. 0.003mm tolerance, N4 surface finish.","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ113","Equipment Name":"Universal Tool & Cutter Grinding Machine","Make":"","Model":"","Category":"Grinding Machine","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":"","Procurement Year":"","Facility IDs":"F010","Application":"Sharpening and reconditioning high-speed steel and carbide tipped tools.","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ114","Equipment Name":"PCB Machining System","Make":"","Model":"","Category":"Workstation","Equipment Class":"Hardware","Quantity":1,"Cost (₹)":"","Procurement Year":"","Facility IDs":"F010","Application":"High precision board making for in-house prototyping. Chemical-free processing.","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"},{"Equipment ID":"EQ115","Equipment Name":"Power Tools (Set)","Make":"","Model":"","Category":"Power Tools","Equipment Class":"Hardware","Quantity":"Set","Cost (₹)":"","Procurement Year":"","Facility IDs":"F010","Application":"Pedestal Grinder, Angle Grinding Machine, Mitre saw, Hand Drilling Machine, Abrasive cut-off machine, Jig Saw Machine.","Specifications":"","Use Cases for Startups":"","Vendor URL":"","Image URL":"","Manual / Datasheet URL":"","Status":"Operational","Location":"","SPOC Name":"","SPOC Email":"","Calibration / AMC Date":"","Last Verified":"","Publish Status":"Draft","Public":"N"}],"categories":[{"Category":"Oscilloscope","Equipment Class":"Hardware","Parent Group":"Test & Measurement","Sort Order":10,"Notes":"Time-domain signal viewing"},{"Category":"Signal / Waveform Generator","Equipment Class":"Hardware","Parent Group":"Test & Measurement","Sort Order":11,"Notes":"Source-side instrumentation"},{"Category":"Probe","Equipment Class":"Hardware","Parent Group":"Test & Measurement","Sort Order":12,"Notes":"Current, voltage, differential"},{"Category":"Spectrum / Signal Analyzer","Equipment Class":"Hardware","Parent Group":"Test & Measurement","Sort Order":13,"Notes":"Frequency-domain analysis"},{"Category":"Vector Network Analyzer","Equipment Class":"Hardware","Parent Group":"Test & Measurement","Sort Order":14,"Notes":"S-parameter measurement"},{"Category":"Power Meter","Equipment Class":"Hardware","Parent Group":"Test & Measurement","Sort Order":15,"Notes":"RF and DC power"},{"Category":"DMM / LCR / Source Meter","Equipment Class":"Hardware","Parent Group":"Test & Measurement","Sort Order":16,"Notes":"Bench multimeters and SMUs"},{"Category":"Power Supply","Equipment Class":"Hardware","Parent Group":"Test & Measurement","Sort Order":17,"Notes":"DC supplies, programmable loads"},{"Category":"EMI / EMC Equipment","Equipment Class":"Hardware","Parent Group":"Test & Measurement","Sort Order":18,"Notes":"Compliance testing"},{"Category":"Anechoic Chamber","Equipment Class":"Hardware","Parent Group":"Test & Measurement","Sort Order":19,"Notes":"Antenna and RF radiated tests"},{"Category":"Antenna","Equipment Class":"Hardware","Parent Group":"Test & Measurement","Sort Order":20,"Notes":"Horn, dipole, broadband"},{"Category":"Workstation","Equipment Class":"Hardware","Parent Group":"Compute & IT","Sort Order":30,"Notes":"GPU / CAD workstations"},{"Category":"Server / Compute Cluster","Equipment Class":"Hardware","Parent Group":"Compute & IT","Sort Order":31,"Notes":"HPC, private cloud"},{"Category":"Embedded Platform","Equipment Class":"Hardware","Parent Group":"Compute & IT","Sort Order":32,"Notes":"FPGA, SoC, dev kits"},{"Category":"3D Printer","Equipment Class":"Hardware","Parent Group":"Manufacturing","Sort Order":40,"Notes":"Polymer / ceramic / industrial"},{"Category":"CNC Machine","Equipment Class":"Hardware","Parent Group":"Manufacturing","Sort Order":41,"Notes":"Mill, lathe, plasma"},{"Category":"Grinding Machine","Equipment Class":"Hardware","Parent Group":"Manufacturing","Sort Order":42,"Notes":"Cylindrical, tool & cutter"},{"Category":"Metrology Equipment","Equipment Class":"Hardware","Parent Group":"Manufacturing","Sort Order":43,"Notes":"CMM, scanners, gauges"},{"Category":"PCB Fabrication","Equipment Class":"Hardware","Parent Group":"Manufacturing","Sort Order":44,"Notes":"In-house PCB making"},{"Category":"Manufacturing Equipment","Equipment Class":"Hardware","Parent Group":"Manufacturing","Sort Order":45,"Notes":"Injection moulding, etc."},{"Category":"Power Tools","Equipment Class":"Hardware","Parent Group":"Manufacturing","Sort Order":46,"Notes":"Hand tools, saws, drills"},{"Category":"Electrochemical Workstation","Equipment Class":"Hardware","Parent Group":"Materials & Energy","Sort Order":50,"Notes":"Potentiostat / galvanostat"},{"Category":"Materials Characterization","Equipment Class":"Hardware","Parent Group":"Materials & Energy","Sort Order":51,"Notes":"XRD, SEM, FTIR-class instruments"},{"Category":"Environmental Test Setup","Equipment Class":"Hardware","Parent Group":"Materials & Energy","Sort Order":52,"Notes":"COD, water quality, gas"},{"Category":"EV Test Equipment","Equipment Class":"Hardware","Parent Group":"Mobility","Sort Order":60,"Notes":"Motor, battery, drivetrain"},{"Category":"ADAS / HIL Platform","Equipment Class":"Hardware","Parent Group":"Mobility","Sort Order":61,"Notes":"Autonomy test rigs"},{"Category":"Robotics Platform","Equipment Class":"Hardware","Parent Group":"Mobility","Sort Order":62,"Notes":"Manipulators, mobile robots"},{"Category":"Imaging / 3D Capture","Equipment Class":"Hardware","Parent Group":"Imaging","Sort Order":70,"Notes":"3D scanners, cameras"},{"Category":"Thermal / IR Equipment","Equipment Class":"Hardware","Parent Group":"Imaging","Sort Order":71,"Notes":"Thermal cameras, IR tools"},{"Category":"Biotech Equipment","Equipment Class":"Hardware","Parent Group":"Biotechnology","Sort Order":80,"Notes":"Fermenter, autoclave, centrifuge"},{"Category":"EDA / Simulation Software","Equipment Class":"Software","Parent Group":"Software Licences","Sort Order":100,"Notes":"ANSYS, Altair, Cadence, etc."},{"Category":"CAD / Design Software","Equipment Class":"Software","Parent Group":"Software Licences","Sort Order":101,"Notes":"Autodesk, SolidWorks"},{"Category":"RF / EM Software","Equipment Class":"Software","Parent Group":"Software Licences","Sort Order":102,"Notes":"Keysight ADS, EMPro"},{"Category":"AI / Cloud Software","Equipment Class":"Software","Parent Group":"Software Licences","Sort Order":103,"Notes":"NVIDIA stack, cloud platforms"},{"Category":"Statistical / Analytics SW","Equipment Class":"Software","Parent Group":"Software Licences","Sort Order":104,"Notes":"Minitab, MATLAB-class"},{"Category":"General Lab Equipment","Equipment Class":"Hardware","Parent Group":"Other","Sort Order":200,"Notes":"Use sparingly — prefer specific category"},{"Category":"Other Software","Equipment Class":"Software","Parent Group":"Software Licences","Sort Order":201,"Notes":"Use sparingly"}],"departments":[{"Dept Code":"CSE","Department Name":"Computer Science & Engineering","School / Group":"School of CSE","HOD Name":"","HOD Email":"cse@kletech.ac.in"},{"Dept Code":"ECE","Department Name":"Electronics & Communication","School / Group":"School of ECE","HOD Name":"","HOD Email":"ece@kletech.ac.in"},{"Dept Code":"EEE","Department Name":"Electrical & Electronics","School / Group":"School of EEE","HOD Name":"","HOD Email":"electrical@kletech.ac.in"},{"Dept Code":"MECH","Department Name":"Mechanical Engineering","School / Group":"School of Mechanical","HOD Name":"","HOD Email":"mech@kletech.ac.in"},{"Dept Code":"CIVIL","Department Name":"Civil Engineering","School / Group":"School of Civil","HOD Name":"","HOD Email":"civil@kletech.ac.in"},{"Dept Code":"BT","Department Name":"Biotechnology","School / Group":"Department of Biotech","HOD Name":"","HOD Email":"biotech@kletech.ac.in"},{"Dept Code":"PHY","Department Name":"Physics","School / Group":"Sciences","HOD Name":"","HOD Email":"physics@kletech.ac.in"},{"Dept Code":"AR","Department Name":"Automation & Robotics","School / Group":"School of A&R","HOD Name":"","HOD Email":"autrob@kletech.ac.in"},{"Dept Code":"ARCH","Department Name":"Architecture","School / Group":"School of Architecture","HOD Name":"","HOD Email":"architecture@kletech.ac.in"},{"Dept Code":"MGMT","Department Name":"Management Studies","School / Group":"School of Management","HOD Name":"","HOD Email":"management@kletech.ac.in"},{"Dept Code":"MAT","Department Name":"Materials Science","School / Group":"Interdisciplinary","HOD Name":"","HOD Email":""},{"Dept Code":"EE","Department Name":"Energy & Environment","School / Group":"Interdisciplinary","HOD Name":"","HOD Email":""},{"Dept Code":"INTER","Department Name":"Interdisciplinary","School / Group":"Cross-school","HOD Name":"","HOD Email":""},{"Dept Code":"CENT","Department Name":"Central / IT","School / Group":"Central","HOD Name":"","HOD Email":""}]};
+
+// ─── SHORTHANDS ────────────────────────────────────────────
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const slug = (s) => String(s||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+
+// ─── DATA HELPERS ──────────────────────────────────────────
+const FACS = DATA.facilities.filter(f => f['Facility ID']);
+const EQS  = DATA.equipment.filter(e => e['Equipment ID']);
+const CATS = DATA.categories;
+const DEPS = DATA.departments;
+
+const CAT_LOOKUP = {};
+CATS.forEach(c => CAT_LOOKUP[c['Category']] = c);
+
+function eqForFacility(fid) {
+  return EQS.filter(e => {
+    const fids = String(e['Facility IDs']||'').split(',').map(s=>s.trim());
+    return fids.includes(fid);
+  });
+}
+
+function facById(fid) { return FACS.find(f => f['Facility ID']===fid); }
+function eqById(eid)  { return EQS.find(e => e['Equipment ID']===eid); }
+
+// ─── STATS (auto-computed) ─────────────────────────────────
+const totalCapex = EQS.reduce((s,e)=>s+(Number(e['Cost (₹)'])||0),0);
+const totalEq    = EQS.length;
+const totalFac   = FACS.length;
+const starCount  = FACS.filter(f=>String(f['Type']||'').includes('STAR')).length;
+const deptCount  = new Set(FACS.map(f=>f['Department']).filter(Boolean)).size;
+const inrFmt = (n) => '₹' + (n/10000000).toFixed(2) + ' Cr';
+
+// ─── SLIDES STATE ──────────────────────────────────────────
+let SLIDE_ORDER = [];   // ['s1','s2','f-F001',...]
+let curIdx = 0;
+let curMod = null;
+
+// ─── RENDER: SLIDE 1 (Title) ───────────────────────────────
+function renderS1() {
+  return `
+  <section class="slide" id="s1" data-key="home">
+    <div class="bg-grid"></div>
+    <div class="glow"></div>
+    <div class="glow2"></div>
+    <div class="body">
+      <div class="left">
+        <div class="eye fu">Research Facilities Portal · ${esc(DATA.meta.unit)}</div>
+        <h1 class="fu">A unified view of <em>research infrastructure</em> at KLE-TU.</h1>
+        <div class="gbar fu"></div>
+        <div class="sub fu">Browse every STAR Lab, Centre of Excellence, and departmental facility — with the equipment, capabilities, and contacts behind them. Built for faculty, students, industry collaborators, and accreditation review.</div>
+        <div class="s1-cta fu">
+          <button class="b-gold" onclick="goSlide('s2')">Browse Facilities →</button>
+          <button class="b-ghost" onclick="openSearch()">⌕ Search</button>
+        </div>
+        <div class="s1-foot fu">${esc(DATA.meta.institution)}</div>
+      </div>
+      <div class="right">
+        <div class="sc fu"><div class="n">${totalFac}</div><div class="l">Research facilities<small>Across all departments &amp; centres</small></div></div>
+        <div class="sc fu"><div class="n">${totalEq}</div><div class="l">Equipment items<small>Hardware, software, instruments</small></div></div>
+        <div class="sc fu"><div class="n">${starCount}</div><div class="l">STAR Labs &amp; CoEs<small>Strategic research centres</small></div></div>
+        <div class="sc fu"><div class="n">${inrFmt(totalCapex)}</div><div class="l">CapEx invested<small>Tracked equipment cost</small></div></div>
+      </div>
+    </div>
+  </section>`;
+}
+
+// ─── RENDER: SLIDE 2 (Map / Directory) ─────────────────────
+let mapFilters = { type: 'all', dept: 'all', q: '' };
+
+function renderS2() {
+  return `
+  <section class="slide map-slide" id="s2" data-key="map">
+    <div class="map-head">
+      <div class="map-eye fu">02 · Facility Directory</div>
+      <h2 class="map-title fu">All ${totalFac} facilities</h2>
+      <div class="map-sub fu">Click any facility to view its equipment, contacts, and collaborating industries. Use filters or search to narrow down.</div>
+      <div class="map-tools fu">
+        <div class="map-search">
+          <input id="mapq" type="text" placeholder="Search this list…" oninput="setMapQ(this.value)">
+        </div>
+        <div class="filter-chips" id="typeChips"></div>
+      </div>
+    </div>
+    <div class="map-body" id="mapBody"></div>
+  </section>`;
+}
+
+function buildTypeChips() {
+  const types = ['all', ...new Set(FACS.map(f=>f['Type']).filter(Boolean))];
+  $('typeChips').innerHTML = types.map(t => {
+    const cnt = t==='all' ? FACS.length : FACS.filter(f=>f['Type']===t).length;
+    const on = mapFilters.type===t ? 'on' : '';
+    const label = t==='all' ? 'All' : t;
+    return `<button class="chip ${on}" onclick="setMapType('${esc(t)}')">${esc(label)} <span class="c">${cnt}</span></button>`;
+  }).join('');
+}
+
+function setMapType(t) { mapFilters.type = t; buildTypeChips(); renderMapBody(); }
+function setMapQ(q)    { mapFilters.q = q.toLowerCase(); renderMapBody(); }
+
+function renderMapBody() {
+  const filtered = FACS.filter(f => {
+    if (mapFilters.type !== 'all' && f['Type'] !== mapFilters.type) return false;
+    if (mapFilters.q) {
+      const hay = [f['Facility Name'], f['Short Name'], f['Department'],
+                   f['Description (Internal)'], f['Collaborating Industries']]
+                  .join(' ').toLowerCase();
+      if (!hay.includes(mapFilters.q)) return false;
+    }
+    return true;
+  });
+
+  if (!filtered.length) {
+    $('mapBody').innerHTML = '<div class="map-empty">No facilities match these filters.</div>';
+    return;
+  }
+
+  // Group by Type for readable sectioning
+  const order = ['STAR Lab','STAR Lab (Sub-facility)','CoE','Central Maker Facility','Innovation Center','Department Lab','Other'];
+  const groups = {};
+  filtered.forEach(f => {
+    const k = f['Type'] || 'Other';
+    if (!groups[k]) groups[k] = [];
+    groups[k].push(f);
+  });
+
+  let html = '';
+  order.forEach(k => {
+    if (!groups[k] || !groups[k].length) return;
+    html += `<div class="map-section">
+      <div class="map-section-head">
+        <div class="map-section-title">${esc(k)}</div>
+        <div class="map-section-meta">${groups[k].length} ${groups[k].length===1?'facility':'facilities'}</div>
+      </div>
+      <div class="map-grid">`;
+    groups[k].forEach(f => {
+      const eqList = eqForFacility(f['Facility ID']);
+      html += `<div class="map-tile" onclick="goFac('${f['Facility ID']}')">
+        <div class="mt-type">${esc(f['Type'])}</div>
+        <div class="mt-short">${esc(f['Short Name'] || f['Facility ID'])}</div>
+        <div class="mt-name">${esc(f['Facility Name'])}</div>
+        <div class="mt-meta">
+          <span>⚙ <strong>${eqList.length}</strong> items</span>
+          <span>${esc(f['Department']||'—')}</span>
+        </div>
+      </div>`;
+    });
+    html += `</div></div>`;
+  });
+
+  $('mapBody').innerHTML = html;
+}
+
+// ─── RENDER: FACILITY SLIDE ────────────────────────────────
+function renderFacSlide(f) {
+  const fid = f['Facility ID'];
+  const eqList = eqForFacility(fid);
+  const indust = String(f['Collaborating Industries']||'').split(/[;,]/).map(s=>s.trim()).filter(Boolean);
+  const capabilities = String(f['Capabilities / Services']||'').split(';').map(s=>s.trim()).filter(Boolean);
+  const totalCost = eqList.reduce((s,e)=>s+(Number(e['Cost (₹)'])||0),0);
+
+  // Group equipment by category (using Parent Group when available)
+  const byGroup = {};
+  eqList.forEach(eq => {
+    const cat = eq['Category'] || 'Uncategorized';
+    const grp = (CAT_LOOKUP[cat] && CAT_LOOKUP[cat]['Parent Group']) || cat;
+    const key = grp + '|' + cat;
+    if (!byGroup[key]) byGroup[key] = { grp, cat, items: [] };
+    byGroup[key].items.push(eq);
+  });
+  const sortedGroups = Object.values(byGroup).sort((a,b) => {
+    const oa = (CAT_LOOKUP[a.cat] && CAT_LOOKUP[a.cat]['Sort Order']) || 999;
+    const ob = (CAT_LOOKUP[b.cat] && CAT_LOOKUP[b.cat]['Sort Order']) || 999;
+    return oa - ob;
+  });
+
+  return `
+  <section class="slide fac-slide" id="f-${fid}" data-key="f-${fid}">
+    <aside class="fac-hero">
+      <div class="fh-type fu">${esc(f['Type'])}</div>
+      <div class="fh-short fu">${esc(f['Short Name'] || fid)}</div>
+      <div class="fh-name fu">${esc(f['Facility Name'])}</div>
+      <div class="fh-line fu"></div>
+      <div class="fh-desc fu">${esc(f['Description (Internal)']||'Description pending.')}</div>
+      <div class="fh-info">
+        <div class="fh-info-row"><div class="lbl">Department</div><div class="val">${esc(f['Department']||'—')}</div></div>
+        ${f['Incharge Name'] ? `<div class="fh-info-row"><div class="lbl">Incharge</div><div class="val">${esc(f['Incharge Name'])}${f['Incharge Role']?' · '+esc(f['Incharge Role']):''}</div></div>` : ''}
+        ${f['Email'] ? `<div class="fh-info-row"><div class="lbl">Contact</div><div class="val"><a href="mailto:${esc(f['Email'])}">${esc(f['Email'])}</a>${f['Phone']?' · '+esc(f['Phone']):''}</div></div>` : ''}
+        ${f['Area (sq ft)'] ? `<div class="fh-info-row"><div class="lbl">Area</div><div class="val">${esc(f['Area (sq ft)'])} sq ft</div></div>` : ''}
+        ${indust.length ? `<div class="fh-info-row"><div class="lbl">Collaborators</div><div class="val"><div class="fh-tags">${indust.map(i=>`<span class="fh-tag">${esc(i)}</span>`).join('')}</div></div></div>` : ''}
+        ${capabilities.length ? `<div class="fh-info-row"><div class="lbl">Capabilities</div><div class="val"><div class="fh-tags">${capabilities.map(c=>`<span class="fh-tag">${esc(c)}</span>`).join('')}</div></div></div>` : ''}
+      </div>
+      <div class="fh-stats">
+        <div class="fh-stat"><div class="fh-stat-n">${eqList.length}</div><div class="fh-stat-l">Equipment</div></div>
+        <div class="fh-stat"><div class="fh-stat-n">${sortedGroups.length}</div><div class="fh-stat-l">Categories</div></div>
+        ${totalCost ? `<div class="fh-stat"><div class="fh-stat-n">${inrFmt(totalCost)}</div><div class="fh-stat-l">CapEx</div></div>` : ''}
+      </div>
+    </aside>
+    <div class="fac-pane">
+      <div class="fp-head">
+        <div>
+          <div class="fp-title">Equipment &amp; Capabilities</div>
+          <div class="fp-meta">${eqList.length} ${eqList.length===1?'item':'items'} · grouped by category</div>
+        </div>
+        <button class="fp-back" onclick="goSlide('s2')">← Back to Directory</button>
+      </div>
+      <div class="fp-body">
+        ${eqList.length ? sortedGroups.map(g => `
+          <div class="cat-block">
+            <div class="cat-block-head">
+              <span><span class="grp">${esc(g.grp)}</span> · ${esc(g.cat)}</span>
+              <span class="cnt">${g.items.length} ${g.items.length===1?'item':'items'}</span>
+            </div>
+            <div class="cards-grid">
+              ${g.items.map(eq => `
+                <div class="card" onclick="openEq('${eq['Equipment ID']}')">
+                  <div class="card-img">
+                    ${eq['Image URL']
+                      ? `<img loading="lazy" src="${esc(eq['Image URL'])}" alt="${esc(eq['Equipment Name'])}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                         <div class="ph" style="display:none">Image pending</div>`
+                      : `<div class="ph">Image pending</div>`
+                    }
+                    <span class="card-badge">${esc(eq['Category'])}</span>
+                  </div>
+                  <div class="card-body">
+                    <div class="card-name">${esc(eq['Equipment Name'])}</div>
+                    <div class="card-spec">${esc(eq['Specifications']||eq['Application']||'—')}</div>
+                    <div class="card-cta">View details →</div>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `).join('') : `
+          <div class="fac-empty">
+            <div class="em-ico">▣</div>
+            <strong>Equipment listing coming soon</strong>
+            <p>Contact ${esc(f['Email']||'the facility incharge')} for the current inventory.</p>
+          </div>
+        `}
+      </div>
+    </div>
+  </section>`;
+}
+
+// ─── BUILD ALL SLIDES ──────────────────────────────────────
+function buildDeck() {
+  const deck = $('deck');
+  let html = renderS1() + renderS2();
+  SLIDE_ORDER = ['s1','s2'];
+
+  FACS.forEach(f => {
+    html += renderFacSlide(f);
+    SLIDE_ORDER.push('f-'+f['Facility ID']);
+  });
+
+  deck.innerHTML = html;
+
+  // Dots
+  const dotsEl = $('dots');
+  dotsEl.innerHTML = SLIDE_ORDER.map((k,i)=>`<div class="dot" data-i="${i}" onclick="goIdx(${i})" title="${esc(k)}"></div>`).join('');
+
+  buildTypeChips();
+  renderMapBody();
+}
+
+// ─── SLIDE NAVIGATION ──────────────────────────────────────
+function activate(idx) {
+  if (idx<0||idx>=SLIDE_ORDER.length) return;
+  const slides = document.querySelectorAll('.slide');
+  slides.forEach((s,i) => {
+    s.classList.remove('active','out');
+    if (i===idx) s.classList.add('active');
+    else if (i<idx) s.classList.add('out');
+  });
+  curIdx = idx;
+  document.querySelectorAll('.dot').forEach((d,i) => d.classList.toggle('on', i===idx));
+  $('pf').style.width = ((idx+1)/SLIDE_ORDER.length*100)+'%';
+  $('ap').classList.toggle('hidden', idx===0);
+  $('an').classList.toggle('hidden', idx===SLIDE_ORDER.length-1);
+  // Update URL hash without scroll
+  const key = SLIDE_ORDER[idx];
+  history.replaceState(null,'', key==='s1'?'#':('#/'+ (key==='s2'?'directory':'f/'+key.substring(2))));
+}
+function goIdx(i){ activate(i); }
+function goSlide(key) {
+  const i = SLIDE_ORDER.indexOf(key);
+  if (i>=0) activate(i);
+}
+function goFac(fid) { goSlide('f-'+fid); }
+function nextSlide(){ activate(Math.min(curIdx+1, SLIDE_ORDER.length-1)); }
+function prevSlide(){ activate(Math.max(curIdx-1, 0)); }
+
+// Deep link on load
+function applyHash() {
+  const h = location.hash.replace(/^#\/?/, '');
+  if (!h) { activate(0); return; }
+  if (h==='directory') { goSlide('s2'); return; }
+  if (h.startsWith('f/')) {
+    const fid = h.substring(2);
+    if (facById(fid)) { goFac(fid); return; }
+  }
+  if (h.startsWith('e/')) {
+    const eid = h.substring(2);
+    const eq = eqById(eid);
+    if (eq) {
+      const fids = String(eq['Facility IDs']||'').split(',').map(s=>s.trim());
+      if (fids[0] && facById(fids[0])) goFac(fids[0]);
+      setTimeout(()=>openEq(eid), 350);
+      return;
+    }
+  }
+  activate(0);
+}
+
+// ─── EQUIPMENT MODAL ───────────────────────────────────────
+function openEq(eid) {
+  const eq = eqById(eid);
+  if (!eq) return;
+  curMod = eid;
+
+  $('mtag').textContent = eq['Category'] || '';
+  $('mtitle').textContent = eq['Equipment Name'] || '';
+  $('msub').textContent = [eq['Make'], eq['Model']].filter(Boolean).join(' · ') ||
+                          eq['Specifications'] || eq['Application'] || '';
+
+  // Image
+  const imgUrl = eq['Image URL'] || '';
+  $('mimg').style.display='none';
+  $('mph').style.display='flex';
+  $('mph').querySelector('p').textContent = 'Loading image…';
+  $('misrc').textContent = '';
+  if (imgUrl) {
+    const tmp = new Image();
+    tmp.onload = () => {
+      $('mimg').src = imgUrl;
+      $('mimg').style.display = 'block';
+      $('mph').style.display = 'none';
+      try { $('misrc').textContent = '↟ ' + new URL(imgUrl).hostname.replace('www.',''); } catch(e){}
+    };
+    tmp.onerror = () => {
+      const vu = eq['Vendor URL'];
+      $('mph').querySelector('p').innerHTML = vu
+        ? `Image unavailable. <a href="${esc(vu)}" target="_blank" style="color:var(--gold);font-family:'DM Mono',monospace;font-size:9.5px">View on vendor site ↗</a>`
+        : 'Image pending. Add an Image URL in the data sheet.';
+    };
+    tmp.src = imgUrl;
+  } else {
+    const vu = eq['Vendor URL'];
+    $('mph').querySelector('p').innerHTML = vu
+      ? `Image pending. <a href="${esc(vu)}" target="_blank" style="color:var(--gold);font-family:'DM Mono',monospace;font-size:9.5px">View on vendor site ↗</a>`
+      : 'Image pending. Add an Image URL in the data sheet.';
+  }
+
+  // Tabs default
+  swTab('s');
+  renderSpecsTab(eq);
+
+  $('mo').classList.add('open');
+  document.body.style.overflow='hidden';
+  history.replaceState(null,'','#/e/'+eid);
+}
+
+function closeMod() {
+  $('mo').classList.remove('open');
+  document.body.style.overflow='';
+  $('mimg').src='';
+  // Restore hash to the facility we came from
+  const key = SLIDE_ORDER[curIdx];
+  history.replaceState(null,'', key==='s1'?'#':('#/'+ (key==='s2'?'directory':'f/'+key.substring(2))));
+}
+
+function swTab(t) {
+  $('tab-specs').classList.toggle('on', t==='s');
+  $('tab-docs').classList.toggle('on',  t==='d');
+  $('tab-meta').classList.toggle('on',  t==='m');
+  $('msp').style.display = t==='s'?'':'none';
+  $('mdp').style.display = t==='d'?'':'none';
+  $('mmp').style.display = t==='m'?'':'none';
+  const eq = eqById(curMod);
+  if (!eq) return;
+  if (t==='s') renderSpecsTab(eq);
+  if (t==='d') renderDocsTab(eq);
+  if (t==='m') renderMetaTab(eq);
+}
+
+function renderSpecsTab(eq) {
+  let html = '';
+  if (eq['Application']) html += `<div class="sdesc">${esc(eq['Application'])}</div>`;
+
+  const specRows = [];
+  if (eq['Make'])         specRows.push(['Make', eq['Make']]);
+  if (eq['Model'])        specRows.push(['Model', eq['Model']]);
+  if (eq['Quantity'])     specRows.push(['Quantity', eq['Quantity']]);
+  if (eq['Procurement Year']) specRows.push(['Procurement Year', eq['Procurement Year']]);
+  if (eq['Equipment Class'])  specRows.push(['Class', eq['Equipment Class']]);
+  if (eq['Specifications']) specRows.push(['Specifications', eq['Specifications']]);
+
+  if (specRows.length) {
+    html += '<div class="ss"><div class="ss-t">Key Specifications</div><table class="st">';
+    specRows.forEach(([k,v]) => html += `<tr><td>${esc(k)}</td><td>${esc(v)}</td></tr>`);
+    html += '</table></div>';
+  }
+
+  const uses = String(eq['Use Cases for Startups']||'').split(';').map(s=>s.trim()).filter(Boolean);
+  if (uses.length) {
+    html += '<div class="ss"><div class="ss-t">Use Cases for Startups</div><div>';
+    uses.forEach(u => html += `<span class="spill">${esc(u)}</span>`);
+    html += '</div></div>';
+  }
+
+  // Action buttons
+  const fids = String(eq['Facility IDs']||'').split(',').map(s=>s.trim()).filter(Boolean);
+  const primaryFac = fids[0] ? facById(fids[0]) : null;
+  const mailTo = primaryFac && primaryFac['Email'] ? primaryFac['Email'] : '';
+  const subj = encodeURIComponent('Access request: ' + (eq['Equipment Name']||eq['Equipment ID']));
+  const body = encodeURIComponent(`Hello,\n\nI would like to request access to the following equipment:\n\nEquipment: ${eq['Equipment Name']} (${eq['Equipment ID']})\nFacility: ${primaryFac ? primaryFac['Facility Name'] : '—'}\n\nPlease share the booking process and availability.\n\nThank you.`);
+  html += '<div style="margin-top:14px">';
+  if (mailTo) html += `<a class="req-btn" href="mailto:${esc(mailTo)}?subject=${subj}&body=${body}">✉ Request Access</a>`;
+  if (eq['Vendor URL']) html += `<a class="vlink" href="${esc(eq['Vendor URL'])}" target="_blank" rel="noopener">↗ Vendor Page</a>`;
+  html += '</div>';
+
+  $('msp').innerHTML = html || '<div class="mod-empty">No specifications recorded yet.</div>';
+}
+
+function renderDocsTab(eq) {
+  let html = '';
+  if (eq['Manual / Datasheet URL']) {
+    html += `<a class="dcard" href="${esc(eq['Manual / Datasheet URL'])}" target="_blank">
+      <div class="dico">▤</div>
+      <div><div class="dn">User Manual / Datasheet</div><div class="dt">External document</div></div>
+    </a>`;
+  }
+  if (eq['Vendor URL']) {
+    html += `<a class="dcard" href="${esc(eq['Vendor URL'])}" target="_blank">
+      <div class="dico">◉</div>
+      <div><div class="dn">Official Product Page</div><div class="dt">Manufacturer website</div></div>
+    </a>`;
+  }
+  $('mdp').innerHTML = html || '<div class="mod-empty">No linked documents yet. Add a Vendor URL or Manual URL in the data sheet.</div>';
+}
+
+function renderMetaTab(eq) {
+  const fids = String(eq['Facility IDs']||'').split(',').map(s=>s.trim()).filter(Boolean);
+  const facLinks = fids.map(fid => {
+    const f = facById(fid);
+    return f ? `<a onclick="closeMod();goFac('${fid}')" style="color:var(--gold);cursor:pointer;border-bottom:1px dotted">${esc(f['Short Name']||fid)}</a>` : esc(fid);
+  }).join(', ');
+
+  const status = eq['Status'] || 'Operational';
+  const statusCls = status==='Operational' ? 's-op' :
+                    status==='Decommissioned' ? 's-dc' : 's-mt';
+
+  $('mmp').innerHTML = `
+    <div class="mod-fields">
+      <div class="mod-field"><div class="lbl">Status</div><div class="val"><span class="status-pill ${statusCls}">${esc(status)}</span></div></div>
+      <div class="mod-field"><div class="lbl">Equipment ID</div><div class="val" style="font-family:'DM Mono',monospace">${esc(eq['Equipment ID'])}</div></div>
+      <div class="mod-field"><div class="lbl">Available at</div><div class="val">${facLinks || '—'}</div></div>
+      <div class="mod-field"><div class="lbl">Location</div><div class="val">${esc(eq['Location']||'—')}</div></div>
+      <div class="mod-field"><div class="lbl">SPOC</div><div class="val">${esc(eq['SPOC Name']||'—')}</div></div>
+      <div class="mod-field"><div class="lbl">SPOC Email</div><div class="val">${eq['SPOC Email']?`<a href="mailto:${esc(eq['SPOC Email'])}" style="color:var(--gold)">${esc(eq['SPOC Email'])}</a>`:'—'}</div></div>
+      <div class="mod-field"><div class="lbl">Calibration / AMC</div><div class="val">${esc(eq['Calibration / AMC Date']||'—')}</div></div>
+      <div class="mod-field"><div class="lbl">Last Verified</div><div class="val">${esc(eq['Last Verified']||'—')}</div></div>
+    </div>
+  `;
+}
+
+// ─── SEARCH ────────────────────────────────────────────────
+let searchSel = 0;
+function openSearch() {
+  $('so').classList.add('open');
+  $('sq').value='';
+  searchSel=0;
+  renderSearchResults('');
+  setTimeout(()=>$('sq').focus(), 50);
+}
+function closeSearch() {
+  $('so').classList.remove('open');
+}
+
+function renderSearchResults(q) {
+  q = q.toLowerCase().trim();
+  const facMatches = q
+    ? FACS.filter(f => [f['Facility Name'],f['Short Name'],f['Department'],f['Type']].join(' ').toLowerCase().includes(q)).slice(0,8)
+    : FACS.slice(0,5);
+  const eqMatches  = q
+    ? EQS.filter(e => [e['Equipment Name'],e['Category'],e['Application'],e['Specifications'],e['Make'],e['Model']].join(' ').toLowerCase().includes(q)).slice(0,12)
+    : [];
+
+  let html = '';
+  if (!facMatches.length && !eqMatches.length) {
+    html = '<div class="so-empty">No results.</div>';
+  } else {
+    if (facMatches.length) {
+      html += '<div class="so-section">Facilities</div>';
+      facMatches.forEach(f => {
+        html += `<div class="so-item" onclick="goFac('${f['Facility ID']}');closeSearch()">
+          <span class="typ">FAC</span>
+          <span class="ttl">${esc(f['Short Name']||f['Facility ID'])} · ${esc(f['Facility Name'])}</span>
+          <span class="meta">${esc(f['Type']||'')}</span>
+        </div>`;
+      });
+    }
+    if (eqMatches.length) {
+      html += '<div class="so-section">Equipment</div>';
+      eqMatches.forEach(e => {
+        html += `<div class="so-item" onclick="openEq('${e['Equipment ID']}');closeSearch()">
+          <span class="typ">EQ</span>
+          <span class="ttl">${esc(e['Equipment Name'])}</span>
+          <span class="meta">${esc(e['Category']||'')}</span>
+        </div>`;
+      });
+    }
+  }
+  $('sr').innerHTML = html;
+}
+
+// ─── ADMIN MODAL (placeholder) ─────────────────────────────
+const ADMIN_PIN_HASH = 'b3bf5b8e1a9e6e7d6c0fadc6b87b89f02bd16f9e4a6e3a8a8b3c7a9e8e9f0c1b'; // not the real hash, won't unlock; v2 will validate via GAS
+
+function openAdmin(){ $('ad').classList.add('open'); setTimeout(()=>$('apin').focus(),50); }
+function closeAdmin(){ $('ad').classList.remove('open'); $('aerr').textContent=''; $('apin').value=''; }
+async function chkAdmin() {
+  const pin = $('apin').value.trim();
+  if (!pin) return;
+  $('aerr').textContent='Admin features are wired in v2 (Google Apps Script migration).';
+  $('apin').value='';
+}
+
+// ─── STALENESS BANNER ─────────────────────────────────────
+function checkStale() {
+  const d = DATA.meta.lastUpdated;
+  $('fc-date').textContent = d.toUpperCase();
+  try {
+    const dt = new Date(d);
+    const days = (Date.now()-dt.getTime())/86400000;
+    if (days > 60) {
+      $('stale-date').textContent = d;
+      $('stale').classList.add('show');
+    }
+  } catch(e){}
+}
+
+// ─── KEYBOARD ──────────────────────────────────────────────
+window.addEventListener('keydown', (e) => {
+  if ($('so').classList.contains('open')) {
+    if (e.key==='Escape') { closeSearch(); return; }
+    if (e.key==='Enter') {
+      const items = document.querySelectorAll('#sr .so-item');
+      if (items[searchSel]) items[searchSel].click();
+      return;
+    }
+    if (e.key==='ArrowDown'||e.key==='ArrowUp') {
+      const items = document.querySelectorAll('#sr .so-item');
+      if (!items.length) return;
+      items[searchSel]?.classList.remove('sel');
+      searchSel = e.key==='ArrowDown'
+        ? Math.min(searchSel+1, items.length-1)
+        : Math.max(searchSel-1, 0);
+      items[searchSel].classList.add('sel');
+      items[searchSel].scrollIntoView({block:'nearest'});
+      e.preventDefault();
+      return;
+    }
+    return;
+  }
+  if ($('mo').classList.contains('open')) {
+    if (e.key==='Escape') { closeMod(); return; }
+    return;
+  }
+  if ($('ad').classList.contains('open')) {
+    if (e.key==='Escape') { closeAdmin(); return; }
+    if (e.key==='Enter')  { chkAdmin(); return; }
+    return;
+  }
+  // Global shortcuts
+  if (e.key==='/' && !['INPUT','TEXTAREA'].includes(document.activeElement.tagName)) {
+    e.preventDefault(); openSearch(); return;
+  }
+  if (e.key==='Escape') { goSlide('s2'); return; }
+  if (e.key==='ArrowRight'||e.key==='PageDown') { nextSlide(); }
+  if (e.key==='ArrowLeft' ||e.key==='PageUp')   { prevSlide(); }
+  if (e.key==='Home') activate(0);
+  if (e.key==='End')  activate(SLIDE_ORDER.length-1);
+});
+
+// Click outside to close modals
+$('mo').addEventListener('click', e => { if (e.target===$('mo')) closeMod(); });
+$('so').addEventListener('click', e => { if (e.target===$('so')) closeSearch(); });
+$('ad').addEventListener('click', e => { if (e.target===$('ad')) closeAdmin(); });
+
+// Search input
+window.addEventListener('load', () => {
+  $('sq').addEventListener('input', e => {
+    searchSel = 0;
+    renderSearchResults(e.target.value);
+  });
+});
+
+// Hash navigation
+window.addEventListener('hashchange', applyHash);
+
+// ─── BOOT ──────────────────────────────────────────────────
+window.addEventListener('load', () => {
+  buildDeck();
+  checkStale();
+  applyHash();
+});
+</script>
+</body>
+</html>
